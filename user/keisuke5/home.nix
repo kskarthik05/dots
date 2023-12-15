@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  imports = [ ./shell.nix ./packages.nix ./scripts ];
+  imports = [ ./shell.nix ./packages.nix];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "keisuke5";

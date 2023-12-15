@@ -1,16 +1,16 @@
 { config, pkgs, ... }: {
   nixpkgs.config = { allowUnfree = true; };
-  home.packages = [
-    pkgs.htop
-    pkgs.wineWowPackages.staging
-    pkgs.lutris
-    pkgs.steam
-    pkgs.neofetch
-    pkgs.nicotine-plus
-    pkgs.picard
-    pkgs.steamtinkerlaunch
-    pkgs.git
-    pkgs.nixfmt
+  home.packages = with pkgs; [
+    htop
+    wineWowPackages.staging
+    lutris
+    steam
+    neofetch
+    nicotine-plus
+    picard
+    steamtinkerlaunch
+    git
+    nixfmt
   ];
   programs.vscode = {
     enable = true;
