@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
 

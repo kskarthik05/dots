@@ -2,22 +2,19 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
-
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./boot.nix
-      ./fs.nix
-      ./users.nix
-      ./sound.nix
-      ./graphics.nix
-      ./input.nix
-      ./network.nix
-      ./locale.nix
-      ./desktop.nix
-      ./services.nix
-    ];
+{ config, lib, pkgs, ... }: {
+  imports = [ # Include the results of the hardware scan.
+    ./boot.nix
+    ./fs.nix
+    ./users.nix
+    ./sound.nix
+    ./graphics.nix
+    ./input.nix
+    ./network.nix
+    ./locale.nix
+    ./desktop.nix
+    ./services.nix
+  ];
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Copy the NixOS configuration file and link it from the resulting system
