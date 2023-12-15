@@ -1,6 +1,12 @@
 { pkgs, ... }:{
-  pkgs.writeShellScriptBin "switchbg" ''
-   cp  "$(find ~/Pictures/backgrounds -type f | shuf -n 1)" ~/.background-image
-   ${pkgs.feh}/bin/feh --bg-fill ~/.background-image
-  ''
+  pkgs.writeShellApplication {
+  name = "switchbg";
+
+  runtimeInputs = [ curl w3m ];
+
+  text = ''
+    cp  "$(find ~/Pictures/backgrounds -type f | shuf -n 1)" ~/.background-image
+    feh --bg-fill ~/.background-image
+  '';
+  };
 }
