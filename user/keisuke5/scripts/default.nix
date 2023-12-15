@@ -1,1 +1,1 @@
-{ imports = [ ./bgscripts.nix ]; }
+{ pkgs, ... }: { imports = [ ./bgscripts.nix ]; }
