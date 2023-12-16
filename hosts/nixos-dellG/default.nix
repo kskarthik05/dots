@@ -7,12 +7,9 @@
     ./boot.nix
     ./fs.nix
     ./users.nix
-    ./sound.nix
     ./graphics.nix
-    ./input.nix
     ./network.nix
     ./locale.nix
-    ./desktop.nix
     ./services.nix
     ../../modules/nixos/desktop/plasma.nix
     ../../modules/nixos/sound/pipewire.nix
