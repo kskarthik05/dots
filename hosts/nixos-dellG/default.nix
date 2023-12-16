@@ -14,6 +14,9 @@
     ./locale.nix
     ./desktop.nix
     ./services.nix
+    ../../modules/nixos/desktop/plasma.nix
+    ../../modules/nixos/sound/pipewire.nix
+    ../../modules/nixos/input/otd.nix
   ];
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

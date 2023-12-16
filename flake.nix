@@ -13,13 +13,13 @@
       nixosConfigurations = {
         nixos-dellG = lib.nixosSystem {
           inherit system;
-          modules = [ ./system/nixos-dellG/system.nix ];
+          modules = [ ./hosts/nixos-dellG ];
         };
       };
       homeConfigurations = {
         keisuke5 = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ ./user/keisuke5/home.nix ];
+          modules = [ ./users/keisuke5 ];
         };
       };
     };
