@@ -11,6 +11,8 @@
     ./network.nix
     ./locale.nix
     ./services.nix
+    ../../modules/nixos/graphics/nvidia-optimus-stable.nix
+    ../../modules/nixos/kernel/linux_latest.nix
     ../../modules/nixos/desktop/plasma.nix
     ../../modules/nixos/sound/pipewire.nix
     ../../modules/nixos/input/otd.nix
