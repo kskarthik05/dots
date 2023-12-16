@@ -22,4 +22,3 @@
     package = pkgs.vscode.fhs;
   };
 }
-X
