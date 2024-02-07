@@ -123,6 +123,26 @@
   };
   programs.dconf.enable = true;
 
+  #Hooks
+  systemd.services.customHooks = let
+    scriptDir = ../../scripts;
+  in {
+    before = [ "shutdown.target" "reboot.target" ];
+    description = "Run various custom startup and shutdown hooks";
+    serviceConfig = {
+      ExecStart = ''
+        for script in ${scriptDir}/startup; do
+          bash $script
+        done
+      '';
+      ExecStop = ''
+        for script in ${scriptDir}/shutdown; do
+          bash $script
+        done
+      '';
+    };
+  };
+
   #Global Packages
   environment.systemPackages = with pkgs; [
     pulseaudio
