@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+qq{ config, pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
     dconf
