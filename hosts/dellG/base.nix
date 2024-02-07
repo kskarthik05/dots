@@ -130,16 +130,8 @@
     before = [ "shutdown.target" "reboot.target" ];
     description = "Run various custom startup and shutdown hooks";
     serviceConfig = {
-      ExecStart = ''
-        for script in ${scriptDir}/startup; do
-          bash $script
-        done
-      '';
-      ExecStop = ''
-        for script in ${scriptDir}/shutdown; do
-          bash $script
-        done
-      '';
+      ExecStart = ''bash ${scriptDir}/startup/run.sh'';
+      ExecStop = ''bash ${scriptDir}/shutdown/run.sh'';
     };
   };
 
