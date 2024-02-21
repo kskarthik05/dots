@@ -15,19 +15,6 @@ let
       touch $STATE_FILE
     fi
   '';
-  gameshift = pkgs.stdenv.mkDerivation {
-    pname = "gameshift";
-    version = "0.0.1";
-    phases = [ "installPhase" ];
-    installPhase = ''
-      mkdir -p $out/bin
-      cd $out/bin
-      cp ${gameshift-toggle}/bin/gameshift-toggle .
-    '';
-    meta = {
-      description = "Script to toggle GameShift Mode in Dell G15-5520 Laptop";
-    };
-  };
 in {
   options.programs.dell-gameshift = {
     enable = mkEnableOption "Enable GameShift toggle for dell G15 5520 Laptops";
@@ -35,6 +22,19 @@ in {
   config = mkIf config.programs.dell-gameshift.enable {
     boot.kernelModules = [ "acpi_call" ];
     boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
-    environment.systemPackages = [ gameshift ];
+    systemd.services.gameshift = {
+      description = "Daemon which enables to run gameshift toggle for dell laptops";
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${gameshift-toggle}/bin/gameshift-toggle";
+        RemainAfterExit="true";
+      };
+      wantedBy = ["multi-user.target"];
+    };
+    systemd.sockets.gameshift = {
+      description = "Socket for triggering gameshift";
+      listenStreams = [ "/tmp/gameshift.socket" ];
+      wantedBy = [ "sockets.target" ];
+    };
   };
 }

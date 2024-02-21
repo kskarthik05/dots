@@ -6,17 +6,31 @@
   boot.kernelPackages = pkgs.linuxPackages-rt_latest;
 
   #Desktop
-  services.xserver = {
-    enable = true;
-    desktopManager.xterm.enable = false;
-    displayManager.defaultSession = "none+i3";
-    windowManager.i3 = {
-      enable = true;
-      package = pkgs.i3-gaps;
-      extraPackages = with pkgs; [ rofi i3status i3lock ];
-    };
-    excludePackages = [ pkgs.xterm ];
-  };
+  services.xserver.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.defaultSession = "gnome-xorg";
+  services.xserver.desktopManager.gnome.enable = true;
+  environment.gnome.excludePackages = (with pkgs; [
+    gnome-photos
+    gnome-tour
+  ]) ++ (with pkgs.gnome; [
+    cheese # webcam tool
+    gnome-music
+    gedit # text editor
+    epiphany # web browser
+    geary # email reader
+    evince # document viewer
+    gnome-characters
+    totem # video player
+    tali # poker game
+    iagno # go game
+    hitori # sudoku game
+    atomix # puzzle game
+  ]);
+  environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];
+  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
   #Sound
   sound.enable = false;
@@ -63,58 +77,32 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   #Swap
-  systemd.services = {
-    create-swapfile = let
-      swapPath = "/nix/persist/swapfile"; 
-    in {
-      serviceConfig.Type = "oneshot";
-      wantedBy = [ "swap-swapfile.swap" ];
-      script = ''
-        ${pkgs.coreutils}/bin/truncate -s 0 ${swapPath}
-        ${pkgs.e2fsprogs}/bin/chattr +C ${swapPath}
-        ${pkgs.btrfs-progs}/bin/btrfs property set ${swapPath} compression none
-      '';
-    };
+  services.swapfile = {
+    enable = true;
+    path = "/nix/persist/swapfile";
+    size = 12;
+    swappiness = 1;
   };
-  swapDevices = [{
-    device = "/nix/persist/swapfile";
-    size = (1024 * 12);
-  }];
-  boot.kernel.sysctl = { "vm.swappiness" = 1; };
 
   #Power
-  services.thermald.enable = true;
-  services.auto-cpufreq.enable = true;
-  services.auto-cpufreq.settings = {
-    battery = {
-      governor = "powersave";
-      turbo = "never";
-    };
-    charger = {
-      governor = "performance";
-      turbo = "auto";
-    };
-  };
+#  services.thermald.enable = true;
+#  services.auto-cpufreq.enable = true;
+#  services.auto-cpufreq.settings = {
+#    battery = {
+#      governor = "powersave";
+#      turbo = "never";
+#    };
+#    charger = {
+#      governor = "performance";
+#      turbo = "auto";
+#    };
+#  };
 
   #Network
   networking.networkmanager.enable = true;
-  networking.extraHosts = ''
-    0.0.0.0 overseauspider.yuanshen.com
-    0.0.0.0 log-upload-os.hoyoverse.com
-
-    0.0.0.0 log-upload.mihoyo.com
-    0.0.0.0 uspider.yuanshen.com
-    0.0.0.0 sg-public-data-api.hoyoverse.com
-
-    0.0.0.0 prd-lender.cdp.internal.unity3d.com
-    0.0.0.0 thind-prd-knob.data.ie.unity3d.com
-    0.0.0.0 thind-gke-usc.prd.data.corp.unity3d.com
-    0.0.0.0 cdp.cloud.unity3d.com
-    0.0.0.0 remote-config-proxy-prd.uca.cloud.unity3d.com
-  '';
 
   #Services
-  programs.dell-gameshift.enable = true;
+#  programs.dell-gameshift.enable = true;
   programs.adb.enable = true;
   programs.gamemode.enable = true;
   hardware.opentabletdriver = {
@@ -122,27 +110,6 @@
     daemon.enable = false;
   };
   programs.dconf.enable = true;
-
-  #Hooks
-  systemd.services.customHooks = let
-    scriptDir = ../../scripts;
-  in {
-    before = [ "shutdown.target" "reboot.target" ];
-    description = "Run various custom startup and shutdown hooks";
-    serviceConfig = {
-      ExecStart = ''bash ${scriptDir}/startup/run.sh'';
-      ExecStop = ''bash ${scriptDir}/shutdown/run.sh'';
-    };
-  };
-
-  #Global Packages
-  environment.systemPackages = with pkgs; [
-    pulseaudio
-    pavucontrol
-    lutris
-    wineWowPackages.staging
-    firefox
-  ];
 
   #Users
   users.mutableUsers = false;
@@ -152,7 +119,7 @@
       "$6$ZKqa0w3vM1rX9f1W$GvWMBomAs1pSgwQ2C6p8DZg5tvOdGNIxks7RpPUcIY9Rnf.aLH3kBPkEts28FFfPtkHXtTM.q0JkXP.u5m4NC0";
     isNormalUser = true;
     extraGroups =
-      [ "wheel" "video" "docker" "vboxusers" "libvirtd" "qemu-libvirtd" ];
+      [ "wheel" "power" "video" "docker" "vboxusers" "libvirtd" "qemu-libvirtd" ];
   };
   services.xserver.displayManager.autoLogin = {
     enable = true;

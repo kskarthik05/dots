@@ -1,5 +1,6 @@
 {
   imports = [ 
     ./gameshift
+    ./swapfile
   ];
 }

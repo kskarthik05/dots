@@ -234,4 +234,3 @@ bindsym $mod+Mod1+p exec xfce4-screenshooter -r -s ~/Pictures/Screenshots
 #xrdb
 exec --no-startup-id xrdb -merge ~/.Xresources
 exec --no-startup-id picom
-exec --no-startup-id xfce4-clipman

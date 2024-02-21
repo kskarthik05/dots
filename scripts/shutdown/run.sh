@@ -1,3 +1,1 @@
-for script in ./tasks/*; do
-  bash "$script"
-done 
+for task in ./tasks/*; do bash $task; done

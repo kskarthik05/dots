@@ -1,19 +1,18 @@
 { config, pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
-    dconf
+    pulseaudio
+    lutris
+    wineWowPackages.wayland
+    firefox
+    pavucontrol
+    r2modman
+    stremio
     simplescreenrecorder
-    networkmanagerapplet
-    pasystray
     xterm
-    lf
-    alacritty
-    lxappearance
-    pcmanfm
     htop
     discord
     neofetch
-    picom
     nicotine-plus
     picard
     git
@@ -26,9 +25,6 @@
     flac
     unar
     brightnessctl
-    unzip
-    xfce.xfce4-screenshooter
-    xfce.xfce4-clipman-plugin
     steam
     steam-run
     mangohud
@@ -37,10 +33,6 @@
     #Custom
     (callPackage ../../pkgs/bgScripts.nix { })
   ];
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
   programs.vscode = {
     enable = true;
     package = pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib openssl.dev pkg-config]);

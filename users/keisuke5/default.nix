@@ -18,13 +18,16 @@
     userEmail = "kskarthik20025@gmail.com";
   };
   programs.home-manager.enable = true;
-  dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      "org/virt-manager/virt-manager/connections" = {
+        autoconnect = ["qemu:///system"];
+        uris = ["qemu:///system"];
+      };
     };
   };
-  dconf.enable = true;
   gtk = with pkgs; {
     enable = true;
     theme = {
@@ -44,7 +47,7 @@
     enable = true;
     shellAliases = {
       nrs = "sudo nixos-rebuild switch --flake $HOME/.dots#dellG";
-      hms = "home-manager switch --flake $HOME/.dots#keisuke5 --impure";
+      hms = "NIXPKGS_ALLOW_INSECURE=1 home-manager switch --flake $HOME/.dots#keisuke5 --impure";
       hed = "nano $HOME/.dots/users/$USER/default.nix";
       hep = "nano $HOME/.dots/users/$USER/packages.nix";
       ccd = "cd $HOME/.dots/users/$USER/config";
