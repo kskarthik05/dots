@@ -27,13 +27,16 @@ in {
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${gameshift-toggle}/bin/gameshift-toggle";
-        RemainAfterExit="true";
+	TimeoutStopSec = 5;
       };
       wantedBy = ["multi-user.target"];
+      requires = [ "gameshift.socket" ];
     };
     systemd.sockets.gameshift = {
       description = "Socket for triggering gameshift";
+      partOf = [ "gameshift@.service" ];
       listenStreams = [ "/tmp/gameshift.socket" ];
+      accept = true;
       wantedBy = [ "sockets.target" ];
     };
   };
