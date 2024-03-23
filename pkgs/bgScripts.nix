@@ -28,8 +28,6 @@ let
 
           # Check if a file named by the checksum exists in $HOME/Pictures/backgrounds/
           if [ ! -f "$HOME/Pictures/backgrounds/$checksum" ]; then
-            cp "$bg_path" "$HOME/Pictures/backgrounds/$checksum"
-            echo "$bg_path"
             return
           fi
         done
