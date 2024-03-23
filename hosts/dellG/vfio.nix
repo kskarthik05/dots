@@ -7,8 +7,8 @@ let
 in {
   boot = {
     initrd.kernelModules =
-      [ "vfio_pci" "vfio" "vfio_iommu_type1" "vfio_virqfd" ];
-    kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" "vfio_virqfd" ];
+      [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
+    kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
     kernelParams =
       [ "intel_iommu=on" ("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs) ];
     blacklistedKernelModules = [ "nvidia" "nouveau" ];
