@@ -5,20 +5,39 @@ let
     name = "getosubg";
     inherit runtimeInputs;
     text = ''
-      search_directory=$HOME/Games/osu!/Songs
+      search_directory="$HOME/Games/osu!/Songs"
       if [ ! -d "$search_directory" ]; then
         echo "The specified directory does not exist."
         exit 1
       fi
-      random_subdirectory=$(find "$search_directory" -maxdepth 1 -mindepth 1 -type d | shuf -n 1)
-      random_osu_file=$(find "$random_subdirectory" -type f -name "*.osu" | shuf -n 1)
-      bg_string=$(awk '/\[Events\]/{flag=1; next} flag && NF{count++; if (count == 2 || count == 3) {if ($0 ~ /"([^"]+\.(jpg|png|jpeg))"/) {print $0; exit}}}' "$random_osu_file")
-      extracted_text=$(echo "$bg_string" | grep -o '".*"' | sed 's/"//g')
-      bg_path="$random_subdirectory/$extracted_text"
-      cp "$bg_path" ~/".background-image"
+
+      # Loop until a unique background is found
+      while true; do
+        random_subdirectory=$(find "$search_directory" -maxdepth 1 -mindepth 1 -type d | shuf -n 1)
+        random_osu_file=$(find "$random_subdirectory" -type f -name "*.osu" | shuf -n 1)
+        bg_string=$(awk '/\[Events\]/{flag=1; next} flag && NF{count++; if (count == 2 || count == 3) {if ($0 ~ /"([^"]+\.(jpg|png|jpeg))"/) {print $0; exit}}}' "$random_osu_file")
+        extracted_text=$(echo "$bg_string" | grep -o '".*"' | sed 's/"//g')
+        bg_path="$random_subdirectory/$extracted_text"
+
+        # Compute SHA1 checksum of the file in bg_path
+        checksum=$(sha1sum "$bg_path" | awk '{print $1}')
+
+        # Check if a file named by the checksum exists in $HOME/Pictures/backgrounds/
+        if [ -f "$HOME/Pictures/backgrounds/$checksum" ]; then
+          echo "Background already exists. Finding another one."
+        else
+          # If the file doesn't exist, copy the background to $HOME/Pictures/backgrounds/ with the name as its checksum
+          cp "$bg_path" "$HOME/Pictures/backgrounds/$checksum"
+          break  # Exit the loop as a unique background has been found
+        fi
+      done
+
+      # Set the background image
+      cp "$HOME/Pictures/backgrounds/$checksum" ~/".background-image"
       feh --bg-fill ~/.background-image
       gsettings set org.gnome.desktop.background picture-uri-dark "file://$HOME/.background-image"
       gsettings set org.gnome.desktop.background picture-uri "file://$HOME/.background-image"
+
     '';
   };
   savebg = pkgs.writeShellApplication {
