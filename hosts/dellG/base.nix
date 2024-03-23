@@ -14,18 +14,17 @@
     gnome-photos
     gnome-tour
   ]) ++ (with pkgs.gnome; [
-    cheese # webcam tool
+    cheese
     gnome-music
-    gedit # text editor
-    epiphany # web browser
-    geary # email reader
-    evince # document viewer
+    epiphany
+    geary
+    evince
     gnome-characters
-    totem # video player
-    tali # poker game
-    iagno # go game
-    hitori # sudoku game
-    atomix # puzzle game
+    totem
+    tali
+    iagno
+    hitori
+    atomix
   ]);
   environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
@@ -102,7 +101,7 @@
   networking.networkmanager.enable = true;
 
   #Services
-#  programs.dell-gameshift.enable = true;
+  programs.dell-gameshift.enable = true;
   programs.adb.enable = true;
   programs.gamemode.enable = true;
   hardware.opentabletdriver = {

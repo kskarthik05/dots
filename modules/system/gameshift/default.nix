@@ -29,14 +29,16 @@ in {
         ExecStart = "${gameshift-toggle}/bin/gameshift-toggle";
 	TimeoutStopSec = 5;
       };
-      wantedBy = ["multi-user.target"];
+      wantedBy = [];
       requires = [ "gameshift.socket" ];
     };
     systemd.sockets.gameshift = {
       description = "Socket for triggering gameshift";
       partOf = [ "gameshift@.service" ];
-      listenStreams = [ "/tmp/gameshift.socket" ];
-      accept = true;
+      socketConfig = {
+         ListenStream = "127.0.0.1:12345";
+         Accept = "yes";
+      };
       wantedBy = [ "sockets.target" ];
     };
   };
