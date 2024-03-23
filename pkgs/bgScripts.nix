@@ -11,34 +11,39 @@ let
         exit 1
       fi
 
-      # Loop until a unique background is found
-      while true; do
-        random_subdirectory=$(find "$search_directory" -maxdepth 1 -mindepth 1 -type d | shuf -n 1)
-        random_osu_file=$(find "$random_subdirectory" -type f -name "*.osu" | shuf -n 1)
-        bg_string=$(awk '/\[Events\]/{flag=1; next} flag && NF{count++; if (count == 2 || count == 3) {if ($0 ~ /"([^"]+\.(jpg|png|jpeg))"/) {print $0; exit}}}' "$random_osu_file")
-        extracted_text=$(echo "$bg_string" | grep -o '".*"' | sed 's/"//g')
-        bg_path="$random_subdirectory/$extracted_text"
+      # Function to compute SHA1 checksum
+      calculate_checksum() {
+        sha1sum "$1" | awk '{print $1}'
+      }
 
-        # Compute SHA1 checksum of the file in bg_path
-        checksum=$(sha1sum "$bg_path" | awk '{print $1}')
+      # Function to find a unique background
+      find_unique_background() {
+        while true; do
+          random_subdirectory=$(find "$search_directory" -maxdepth 1 -mindepth 1 -type d | shuf -n 1)
+          random_osu_file=$(find "$random_subdirectory" -type f -name "*.osu" | shuf -n 1)
+          bg_string=$(awk '/\[Events\]/{flag=1; next} flag && NF{count++; if (count == 2 || count == 3) {if ($0 ~ /"([^"]+\.(jpg|png|jpeg))"/) {print $0; exit}}}' "$random_osu_file")
+          extracted_text=$(echo "$bg_string" | grep -o '".*"' | sed 's/"//g')
+          bg_path="$random_subdirectory/$extracted_text"
+          checksum=$(calculate_checksum "$bg_path")
 
-        # Check if a file named by the checksum exists in $HOME/Pictures/backgrounds/
-        if [ -f "$HOME/Pictures/backgrounds/$checksum" ]; then
-          echo "Background already exists. Finding another one."
-        else
-          # If the file doesn't exist, copy the background to $HOME/Pictures/backgrounds/ with the name as its checksum
-          cp "$bg_path" "$HOME/Pictures/backgrounds/$checksum"
-          break  # Exit the loop as a unique background has been found
-        fi
-      done
+          # Check if a file named by the checksum exists in $HOME/Pictures/backgrounds/
+          if [ ! -f "$HOME/Pictures/backgrounds/$checksum" ]; then
+            cp "$bg_path" "$HOME/Pictures/backgrounds/$checksum"
+            echo "$bg_path"
+            return
+          fi
+        done
+      }
+
+      # Find a unique background
+      unique_bg_path=$(find_unique_background)
 
       # Set the background image
-      cp "$HOME/Pictures/backgrounds/$checksum" ~/".background-image"
+      cp "$unique_bg_path" ~/".background-image"
       feh --bg-fill ~/.background-image
       gsettings set org.gnome.desktop.background picture-uri-dark "file://$HOME/.background-image"
       gsettings set org.gnome.desktop.background picture-uri "file://$HOME/.background-image"
-
-    '';
+ '';
   };
   savebg = pkgs.writeShellApplication {
     name = "savebg";
