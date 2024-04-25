@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     ffmpeg
-    heroic
     pulseaudio
     lutris
     wineWowPackages.wayland
