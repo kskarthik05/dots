@@ -1,6 +1,7 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, pkgs-unstable, inputs, ... }:
 {
   home.packages = with pkgs; [
+    pkgs-unstable.universal-android-debloater
     jre
     ffmpeg
     pulseaudio
@@ -10,7 +11,7 @@
     pavucontrol
     r2modman
     stremio
-    simplescreenrecorder
+    obs-studio
     xterm
     htop
     discord
