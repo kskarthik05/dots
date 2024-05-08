@@ -5,13 +5,6 @@
   home.username = "keisuke5";
   home.homeDirectory = "/home/keisuke5";
   home.stateVersion = "23.11";
-  home.file."${config.xdg.configHome}" = {
-    source = ./config;
-    recursive = true;
-  };
-  home.file.".Xresources"={
-    source = ./config/Xresources;
-  };
   programs.git = {
     enable = true;
     userName  = "Karthik";
@@ -41,6 +34,9 @@
     cursorTheme = {
       name = "Bibata-Modern-Ice";
       package = bibata-cursors;
+    };
+    gtk4.extraConfig = {
+      gtk-scroll-speed-mouse=3;
     };
   };
   programs.bash = {
