@@ -1,12 +1,15 @@
 { config, pkgs, pkgs-unstable, inputs, ... }:
 {
   home.packages = with pkgs; [
+    libreoffice-fresh
+    chromium
     pkgs-unstable.universal-android-debloater
     jre
     ffmpeg
     pulseaudio
     lutris
-    wineWowPackages.wayland
+#    wineWowPackages.stagingFull
+    pkgs-unstable.wineWowPackages.staging
     firefox
     pavucontrol
     r2modman
@@ -14,7 +17,7 @@
     obs-studio
     xterm
     htop
-    discord
+    pkgs-unstable.discord
     neofetch
     nicotine-plus
     picard

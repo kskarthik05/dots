@@ -16,7 +16,7 @@
       config.allowUnfree = true;
     };
     pkgs-unstable = import nixpkgs-unstable {
-      inherit system;
+      inherit system overlays;
       config.allowUnfree = true;
     };
   in {

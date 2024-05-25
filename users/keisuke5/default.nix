@@ -36,7 +36,7 @@
       package = bibata-cursors;
     };
     gtk4.extraConfig = {
-      gtk-scroll-speed-mouse=3;
+      gtk-scroll-speed-mouse=5;
     };
   };
   programs.bash = {

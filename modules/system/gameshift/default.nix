@@ -22,24 +22,6 @@ in {
   config = mkIf config.programs.dell-gameshift.enable {
     boot.kernelModules = [ "acpi_call" ];
     boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
-    systemd.services.gameshift = {
-      description = "Daemon which enables to run gameshift toggle for dell laptops";
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${gameshift-toggle}/bin/gameshift-toggle";
-	TimeoutStopSec = 5;
-      };
-      wantedBy = [];
-      requires = [ "gameshift.socket" ];
-    };
-    systemd.sockets.gameshift = {
-      description = "Socket for triggering gameshift";
-      partOf = [ "gameshift@.service" ];
-      socketConfig = {
-         ListenStream = "127.0.0.1:12345";
-         Accept = "yes";
-      };
-      wantedBy = [ "sockets.target" ];
-    };
+    environment.systemPackages = [ gameshift-toggle ];
   };
 }
