@@ -1,0 +1,4 @@
+export path = (
+		$HOME/.config/
+              )
+

@@ -1,6 +1,8 @@
 { config, pkgs, pkgs-unstable, inputs, ... }:
 {
   home.packages = with pkgs; [
+    gnome.dconf-editor
+    distrobox
     libreoffice-fresh
     chromium
     pkgs-unstable.universal-android-debloater
@@ -8,7 +10,6 @@
     ffmpeg
     pulseaudio
     lutris
-#    wineWowPackages.stagingFull
     pkgs-unstable.wineWowPackages.staging
     firefox
     pavucontrol
