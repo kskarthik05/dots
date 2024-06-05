@@ -7,29 +7,10 @@
 
   #Desktop
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.defaultSession = "gnome-xorg";
-  services.xserver.desktopManager.gnome.enable = true;
-  environment.gnome.excludePackages = (with pkgs; [
-    gnome-photos
-    gnome-tour
-  ]) ++ (with pkgs.gnome; [
-    cheese
-    gnome-music
-    epiphany
-    geary
-    evince
-    gnome-characters
-    totem
-    tali
-    iagno
-    hitori
-    atomix
-  ]);
-  environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma6.enable = true;
+  services.xserver.displayManager.defaultSession = "plasma";
+  services.xserver.displayManager.sddm.wayland.enable = true;
 
   #Sound
   sound.enable = false;
@@ -71,7 +52,7 @@
       nvidiaBusId = "PCI:1:0:0";
     };
     powerManagement.finegrained = false;
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
   services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -134,7 +115,6 @@
     "L /var/lib/NetworkManager/secret_key - - - - /persist/var/lib/NetworkManager/secret_key"
     "L /var/lib/NetworkManager/seen-bssids - - - - /persist/var/lib/NetworkManager/seen-bssids"
     "L /var/lib/NetworkManager/timestamps - - - - /persist/var/lib/NetworkManager/timestamps"
-    "f /dev/shm/looking-glass 0660 keisuke5 qemu-libvirtd -"
   ];
   environment.etc = {
     "machine-id".source = "/nix/persist/etc/machine-id";
@@ -145,12 +125,6 @@
   };
   fileSystems."/var/log" = {
     device = "/nix/persist/var/log";
-    fsType = "none";
-    options = [ "bind" ];
-    neededForBoot = true;
-  };
-  fileSystems."/var/lib/libvirt" = {
-    device = "/nix/persist/var/lib/libvirt";
     fsType = "none";
     options = [ "bind" ];
     neededForBoot = true;

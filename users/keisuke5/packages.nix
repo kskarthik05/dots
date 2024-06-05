@@ -1,9 +1,14 @@
 { config, pkgs, pkgs-unstable, inputs, ... }:
-{
+let
+  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
+in {
   home.packages = with pkgs; [
+    nur.repos.ataraxiasjel.waydroid-script
+    unigine-valley
+    krita
+    pciutils
     gnome.dconf-editor
     distrobox
-    libreoffice-fresh
     chromium
     pkgs-unstable.universal-android-debloater
     jre
@@ -18,7 +23,7 @@
     obs-studio
     xterm
     htop
-    pkgs-unstable.discord
+    vesktop
     neofetch
     nicotine-plus
     picard

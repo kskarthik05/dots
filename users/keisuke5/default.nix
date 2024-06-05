@@ -21,24 +21,6 @@
       };
     };
   };
-  gtk = with pkgs; {
-    enable = true;
-    theme = {
-      name = "Mint-Y-Dark-Grey";
-      package = cinnamon.mint-themes;
-    };
-    iconTheme = {
-      name = "Mint-Y-Grey";
-      package = cinnamon.mint-y-icons;
-    };
-    cursorTheme = {
-      name = "Bibata-Modern-Ice";
-      package = bibata-cursors;
-    };
-    gtk4.extraConfig = {
-      gtk-scroll-speed-mouse=5;
-    };
-  };
   programs.bash = {
     enable = true;
     shellAliases = {

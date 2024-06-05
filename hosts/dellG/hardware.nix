@@ -21,7 +21,7 @@
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/6b74c9c9-1c4b-4360-9534-daaa94160697";
       fsType = "btrfs";
-      options = [ "subvol=home" "rw" "ssd" "space_cache=v2" "noatime" ];
+      options = [ "subvol=home" "rw" "ssd" "space_cache=v2" "noatime" "discard=async" ];
     };
 
   boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/45362cde-8b2b-4366-906d-b38c34d4f5ae";
@@ -29,7 +29,7 @@
   fileSystems."/nix" =
     { device = "/dev/disk/by-uuid/6b74c9c9-1c4b-4360-9534-daaa94160697";
       fsType = "btrfs";
-      options = [ "subvol=nix" "rw" "ssd" "space_cache=v2" "noatime" ];
+      options = [ "subvol=nix" "rw" "ssd" "space_cache=v2" "noatime" "discard=async" ];
     };
 
   fileSystems."/boot" =
