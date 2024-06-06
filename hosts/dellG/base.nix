@@ -3,7 +3,7 @@
   #Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   #Desktop
   services.xserver.enable = true;
