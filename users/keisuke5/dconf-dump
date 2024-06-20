@@ -8,6 +8,10 @@ window-width=540
 [com/ftpix/transparentbar]
 transparency=0
 
+[com/usebottles/bottles]
+window-height=640
+window-width=880
+
 [org/gnome/Console]
 font-scale=1.2
 last-window-size=(653, 480)
@@ -670,7 +674,7 @@ vm-window-size=(1920, 1002)
 last-folder-path='/home/keisuke5/Games/WuWa/harmonic'
 
 [org/gnome/rhythmbox]
-maximized=false
+maximized=true
 position=(0, 0)
 size=(1920, 1008)
 
@@ -682,12 +686,12 @@ layout-path='%aa/%at'
 media-type='audio/x-vorbis'
 
 [org/gnome/rhythmbox/library/source]
-paned-position=183
+paned-position=71
 sorting=('FirstSeen', false)
 
 [org/gnome/rhythmbox/player]
 play-order='random-by-age-and-rating'
-volume=0.57000732421875
+volume=0.32000732421875
 
 [org/gnome/rhythmbox/plugins]
 active-plugins=['rb', 'power-manager', 'notification', 'mtpdevice', 'mpris', 'iradio', 'ipod', 'generic-player', 'dbus-media-server', 'cd-recorder', 'audioscrobbler', 'audiocd', 'android', 'artsearch']
@@ -704,6 +708,9 @@ initial-stations-loaded=true
 
 [org/gnome/rhythmbox/podcast]
 download-location='file:///home/keisuke5'
+
+[org/gnome/rhythmbox/podcast/source]
+paned-position=71
 
 [org/gnome/rhythmbox/rhythmdb]
 locations=['file:///home/keisuke5/Music/sorted']
@@ -848,7 +855,7 @@ selected-color=(true, 0.16862745098039217, 0.16862745098039217, 0.16862745098039
 [org/gtk/settings/file-chooser]
 date-format='regular'
 location-mode='path-bar'
-show-hidden=false
+show-hidden=true
 show-size-column=true
 show-type-column=true
 sidebar-width=152
@@ -856,12 +863,12 @@ sort-column='modified'
 sort-directories-first=false
 sort-order='descending'
 type-format='category'
-window-position=(410, 92)
+window-position=(26, 23)
 window-size=(1096, 822)
 
 [org/virt-manager/virt-manager]
-manager-window-height=1008
-manager-window-width=958
+manager-window-height=1007
+manager-window-width=1920
 xmleditor-enabled=true
 
 [org/virt-manager/virt-manager/confirm]
@@ -881,40 +888,200 @@ window-size=(915, 991)
 show-toolbar=true
 
 [org/virt-manager/virt-manager/new-vm]
+firmware='uefi'
 graphics-type='system'
+storage-format='raw'
 
 [org/virt-manager/virt-manager/paths]
-image-default='/home/keisuke5/Downloads'
-media-default='/home/keisuke5/Downloads'
+image-default='/home/keisuke5/Utilities'
+media-default='/home/keisuke5/Desktop'
 
 [org/virt-manager/virt-manager/urls]
-isos=['/home/keisuke5/Downloads/26100.1.240331-1435.ge_release_CLIENT_ENTERPRISES_OEM_x64FRE_en-us.iso', '/home/keisuke5/Downloads/26100.1.240331-1435.ge_release_CLIENT_IOT_LTSC_EVAL_x64FRE_en-us.iso']
+isos=['/var/lib/libvirt/images/keys.img', '/var/lib/libvirt/images/Win11_23H2_EnglishInternational_x64v2.iso', '/home/keisuke5/Desktop/Win11_23H2_EnglishInternational_x64v2.iso', '/var/lib/libvirt/images/26100.1.240331-1435.ge_release_CLIENT_ENTERPRISES_OEM_x64FRE_en-us.iso', '/home/keisuke5/Utilities/26100.1.240331-1435.ge_release_CLIENT_ENTERPRISES_OEM_x64FRE_en-us.iso', '/home/keisuke5/Downloads/26100.1.240331-1435.ge_release_CLIENT_ENTERPRISES_OEM_x64FRE_en-us.iso', '/home/keisuke5/Downloads/26100.1.240331-1435.ge_release_CLIENT_IOT_LTSC_EVAL_x64FRE_en-us.iso']
 
 [org/virt-manager/virt-manager/vmlist-fields]
 disk-usage=false
 network-traffic=false
+
+[org/virt-manager/virt-manager/vms/0ab5ca938b72411188bfed73d5d01276]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/151fd32e39414d1193287d201ae74bd3]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/193558dd3be24b4099167a4364afcf4c]
+autoconnect=1
+scaling=1
+vm-window-size=(959, 1008)
+
+[org/virt-manager/virt-manager/vms/249aa0f0f5544d3585c6c321f8af29f9]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/2ec7c8571723402c9b6b322d34811e14]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/3697f70524fc48d6aec6022485315795]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
 
 [org/virt-manager/virt-manager/vms/374b479f920a40e9b4b055313b288a3e]
 autoconnect=1
 scaling=1
 vm-window-size=(1024, 811)
 
+[org/virt-manager/virt-manager/vms/3c4e2ba246b745daa7ea249f94802278]
+autoconnect=1
+scaling=1
+vm-window-size=(959, 1008)
+
 [org/virt-manager/virt-manager/vms/443dd88f5e1649d8861da54fd31ad93b]
 autoconnect=1
 scaling=1
+vm-window-size=(959, 1008)
+
+[org/virt-manager/virt-manager/vms/4e328c9939e5447492e7bcfc4bf090e9]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/4e4f68a0074948db9ac2941215364fca]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/4f843418335845629ad1f0eb10a8a805]
+autoconnect=1
+scaling=1
 vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/51a042b0debf4a4dbb63e946a9fd5fc5]
+autoconnect=1
+scaling=1
+vm-window-size=(1280, 869)
+
+[org/virt-manager/virt-manager/vms/56249a8e802c4be1b242a84d4bf0f1ac]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/5d64db6175c14c4184881634bb2bcc1e]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1009)
+
+[org/virt-manager/virt-manager/vms/5e491c66f1c447ac964916fad8740fc7]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
 
 [org/virt-manager/virt-manager/vms/6f53611a8071466cb7339d652e20c0b0]
 autoconnect=1
 scaling=1
 vm-window-size=(1920, 1002)
 
+[org/virt-manager/virt-manager/vms/781e7e7ed84d493ca55692b077dedf98]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/7a00c613098441128da3c24927a7c0e9]
+autoconnect=1
+scaling=1
+
+[org/virt-manager/virt-manager/vms/7cebfdc2bbc4438d9c1a3ae1873003f0]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
+
 [org/virt-manager/virt-manager/vms/87bb5d8ab15e4a5a9335f28c6954e190]
 autoconnect=1
 scaling=1
 vm-window-size=(1920, 1002)
 
+[org/virt-manager/virt-manager/vms/9460a456ad0849a0b6ae7f3ac7250a58]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
 [org/virt-manager/virt-manager/vms/9cbfae41e8384c82b07dd8b29930270e]
 autoconnect=1
 scaling=1
 vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/ae5ce5b61a1d451d84cd32b45a21be69]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/b101eaa72c404e57b228aaea3708b33a]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/b17b39dd0b384626ac2ca037b6bd2d22]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/c2406bf38ec74c5db62083c67c594737]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/c45bbbd8637f46d5bd00daa2353f7e3a]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/c64a20eeb9f8466e8dbfb59707f8fa39]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/d1aa45c181374656b0ec0e6bc7e0b096]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/db9cdfd2b79b420da74ff3ca0131c12b]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1011)
+
+[org/virt-manager/virt-manager/vms/e5d3579610b44fc196a1d84fff654c41]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/e7c45457479048ca8eba1b71b420485c]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/e8297fa74d1345af85ed67a77f67d5a2]
+autoconnect=1
+scaling=1
+vm-window-size=(1920, 1008)
+
+[org/virt-manager/virt-manager/vms/ee0fef44e52c440e8b7314ecc92289c0]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/f809724e87a84dfeb86f8705fe8f7e3e]
+autoconnect=1
+scaling=1
+vm-window-size=(1024, 810)
+
+[org/virt-manager/virt-manager/vms/fc8a59c69f1348b99869de51b202af1a]
+autoconnect=1
+scaling=1
