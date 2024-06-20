@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, pkgs-unstable, lib, config, ... }:
 let
   gpuIDs = [
     "10de:25e2" # Graphics
@@ -10,6 +10,30 @@ let
     export __GLX_VENDOR_LIBRARY_NAME=nvidia
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec "$@"
+  '';
+  disable-gpu = pkgs.writeShellScriptBin "disable-gpu" ''
+    sudo rmmod nvidia_drm nvidia_modeset nvidia_uvm nvidia
+    sudo virsh nodedev-detach pci_0000_01_00_0
+    sudo virsh nodedev-detach pci_0000_01_00_1
+  '';
+  enable-gpu = pkgs.writeShellScriptBin "enable-gpu" ''
+    sudo virsh nodedev-reattach pci_0000_01_00_0
+    sudo virsh nodedev-reattach pci_0000_01_00_1
+    sudo modprobe -i nvidia_drm nvidia_modeset nvidia_uvm nvidia
+  '';
+  boot-win11vm = pkgs.writeShellScriptBin "boot-win11vm" ''
+    sudo systemctl restart samba-winbindd
+    sudo systemctl restart samba-smbd
+    sudo systemctl restart samba-nmbd
+    virsh -c qemu:///system start win11 && scream -i virbr0 -u -p 4011
+  '';
+  kill-win11vm = pkgs.writeShellScriptBin "kill-win11vm" ''
+    sudo systemctl stop samba-winbindd
+    sudo systemctl stop samba-smbd
+    sudo systemctl stop samba-nmbd
+    sudo systemctl stop 
+    virsh -c qemu:///system destroy win11
+    killall scream
   '';
 in {
   boot = {
@@ -30,14 +54,13 @@ in {
   services.xserver.serverFlagsSection = ''
     Option "AutoAddGPU" "false"
   '';
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      ovmf.enable = true;
-      ovmf.packages = [ pkgs.OVMFFull.fd ];
-      swtpm.enable = true;
-    };
+virtualisation.libvirtd = {
+  enable = true;
+  qemu = {
+    runAsRoot = false;
+    swtpm.enable = true;
   };
+};
   programs.virt-manager.enable = true;
   systemd.tmpfiles.rules =
     [ "f /dev/shm/looking-glass 0660 keisuke5 qemu-libvirtd -" ];
@@ -46,9 +69,14 @@ in {
     looking-glass-client
     virtiofsd
     nvidia-offload
+    enable-gpu
+    disable-gpu
+    boot-win11vm
+    kill-win11vm
     killall
     lsof
     psmisc
+    swtpm
   ];
   environment.sessionVariables = {
     LIBVIRT_DEFAULT_URI = [ "qemu:///system" ];
@@ -62,22 +90,25 @@ in {
     options = [ "bind" ];
     neededForBoot = true;
   };
+  fileSystems."/var/lib/samba" = {
+    device = "/nix/persist/var/lib/samba";
+    fsType = "none";
+    options = [ "bind" ];
+    neededForBoot = true;
+  };
   networking.firewall.trustedInterfaces = [ "virbr0" ];
   services.samba = {
     enable = true;
-    securityType = "user";
     openFirewall = true;
     extraConfig = ''
+      security = user
       server string = smbnix
       netbios name = smbnix
-      security = user 
       usershare allow guests = yes
       bind interfaces only = yes
       interfaces = virbr0
-      guest account = nobody
       map to guest = bad user
       force user = keisuke5
-      ntlm auth = true
       acl allow execute always = True
     '';
     shares = {

@@ -687,7 +687,7 @@ sorting=('FirstSeen', false)
 
 [org/gnome/rhythmbox/player]
 play-order='random-by-age-and-rating'
-volume=0.77777099609375
+volume=0.57000732421875
 
 [org/gnome/rhythmbox/plugins]
 active-plugins=['rb', 'power-manager', 'notification', 'mtpdevice', 'mpris', 'iradio', 'ipod', 'generic-player', 'dbus-media-server', 'cd-recorder', 'audioscrobbler', 'audiocd', 'android', 'artsearch']
@@ -848,15 +848,15 @@ selected-color=(true, 0.16862745098039217, 0.16862745098039217, 0.16862745098039
 [org/gtk/settings/file-chooser]
 date-format='regular'
 location-mode='path-bar'
-show-hidden=true
+show-hidden=false
 show-size-column=true
 show-type-column=true
-sidebar-width=149
+sidebar-width=152
 sort-column='modified'
 sort-directories-first=false
 sort-order='descending'
 type-format='category'
-window-position=(26, 23)
+window-position=(410, 92)
 window-size=(1096, 822)
 
 [org/virt-manager/virt-manager]

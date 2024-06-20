@@ -3,6 +3,7 @@ let
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
 in {
   home.packages = with pkgs; [
+    pkgs-unstable.osu-lazer-bin
     discord
     nur.repos.ataraxiasjel.waydroid-script
     unigine-valley
