@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { system = builtins.currentSystem; } , stdenv ? pkgs.stdenv, lib ? pkgs.lib }:
 let
-  runtimeInputs= with pkgs; [ libnotify ];
+  runtimeInputs= with pkgs; [ pywal glib libnotify ];
   getosubg = pkgs.writeShellApplication {
     name = "getosubg";
     inherit runtimeInputs;
@@ -36,9 +36,13 @@ let
 
       # Find a unique background
       unique_bg_path=$(find_unique_background)
-      plasma-apply-wallpaperimage "$(realpath "$unique_bg_path")"
+
       # Set the background image
+      wal -c
+      wal -i "$unique_bg_path"
       cp "$unique_bg_path" ~/".background-image"
+      swaymsg output "*" bg ~/.background-image fill
+   
  '';
   };
   savebg = pkgs.writeShellApplication {
@@ -53,9 +57,12 @@ let
     name = "switchbg";
     inherit runtimeInputs;
     text = ''
+      
       imgPath=$(find ~/Pictures/backgrounds -type f | shuf -n 1)
-      plasma-apply-wallpaperimage "$(realpath "$imgPath")"
+      wal -c
+      wal -i "$imgPath"  
       cp "$imgPath" ~/.background-image
+      swaymsg output "*" bg ~/.background-image fill
     '';
   };
 in stdenv.mkDerivation {

@@ -21,16 +21,4 @@
       };
     };
   };
-  programs.bash = {
-    enable = true;
-    shellAliases = {
-      nrs = "sudo nixos-rebuild switch --flake $HOME/.dots#dellG";
-      hms = "NIXPKGS_ALLOW_INSECURE=1 home-manager switch --flake $HOME/.dots#keisuke5 --impure";
-      hed = "nano $HOME/.dots/users/$USER/default.nix";
-      hep = "nano $HOME/.dots/users/$USER/packages.nix";
-      ccd = "cd $HOME/.dots/users/$USER/config";
-      cud = "cd $HOME/.dots/users/$USER";
-      csd = "cd $HOME/.dots/hosts/dellG";
-    };
-  };
 }

@@ -1,15 +1,15 @@
-{config, pkgs-unstable, ... }:{
+{config, pkgs, ... }:{
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs-unstable; [
+    extraPackages = with pkgs; [
       nvidia-vaapi-driver
       vaapiIntel
       vaapiVdpau
       libvdpau-va-gl
     ];
-    extraPackages32 = with pkgs-unstable.pkgsi686Linux; [
+    extraPackages32 = with pkgs.pkgsi686Linux; [
       nvidia-vaapi-driver
       vaapiIntel
       vaapiVdpau

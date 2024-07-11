@@ -1,0 +1,255 @@
+
+From a0689cfbaebbeed62650fcefc53c26acfec0abb5 Mon Sep 17 00:00:00 2001
+From: Ricardo Steijn <ricardo.steijn97@gmail.com>
+Date: Sun, 3 Dec 2023 23:58:48 +0100
+Subject: [PATCH 4/6] tearing control: change options to allow_tearing, add
+ commit fallback
+
+---
+ include/sway/commands.h                       |  4 +--
+ sway/commands.c                               |  2 +-
+ .../{tearing_allowed.c => allow_tearing.c}    |  4 +--
+ sway/commands/output.c                        |  2 +-
+ .../{tearing_allowed.c => allow_tearing.c}    |  4 +--
+ sway/config/output.c                          |  2 +-
+ sway/meson.build                              |  4 +--
+ sway/sway-output.5.scd                        |  4 +--
+ sway/sway.5.scd                               | 28 +++++++++----------
+ 9 files changed, 27 insertions(+), 27 deletions(-)
+ rename sway/commands/{tearing_allowed.c => allow_tearing.c} (81%)
+ rename sway/commands/output/{tearing_allowed.c => allow_tearing.c} (77%)
+
+diff --git a/include/sway/commands.h b/include/sway/commands.h
+index aa79b9a4bb..cc97ccaf25 100644
+--- a/include/sway/commands.h
++++ b/include/sway/commands.h
+@@ -104,6 +104,7 @@ struct sway_container *container_find_resize_parent(struct sway_container *con,
+ sway_cmd cmd_exec_validate;
+ sway_cmd cmd_exec_process;
+ 
++sway_cmd cmd_allow_tearing;
+ sway_cmd cmd_assign;
+ sway_cmd cmd_bar;
+ sway_cmd cmd_bindcode;
+@@ -184,7 +185,6 @@ sway_cmd cmd_sticky;
+ sway_cmd cmd_swaybg_command;
+ sway_cmd cmd_swaynag_command;
+ sway_cmd cmd_swap;
+-sway_cmd cmd_tearing_allowed;
+ sway_cmd cmd_tiling_drag;
+ sway_cmd cmd_tiling_drag_threshold;
+ sway_cmd cmd_title_align;
+@@ -283,6 +283,7 @@ sway_cmd input_cmd_xkb_switch_layout;
+ sway_cmd input_cmd_xkb_variant;
+ 
+ sway_cmd output_cmd_adaptive_sync;
++sway_cmd output_cmd_allow_tearing;
+ sway_cmd output_cmd_background;
+ sway_cmd output_cmd_disable;
+ sway_cmd output_cmd_dpms;
+@@ -296,7 +297,6 @@ sway_cmd output_cmd_render_bit_depth;
+ sway_cmd output_cmd_scale;
+ sway_cmd output_cmd_scale_filter;
+ sway_cmd output_cmd_subpixel;
+-sway_cmd output_cmd_tearing_allowed;
+ sway_cmd output_cmd_toggle;
+ sway_cmd output_cmd_transform;
+ sway_cmd output_cmd_unplug;
+diff --git a/sway/commands.c b/sway/commands.c
+index 85b43003ff..c2c12ee655 100644
+--- a/sway/commands.c
++++ b/sway/commands.c
+@@ -112,6 +112,7 @@ static const struct cmd_handler config_handlers[] = {
+ 
+ /* Runtime-only commands. Keep alphabetized */
+ static const struct cmd_handler command_handlers[] = {
++	{ "allow_tearing", cmd_allow_tearing },
+ 	{ "border", cmd_border },
+ 	{ "create_output", cmd_create_output },
+ 	{ "exit", cmd_exit },
+@@ -136,7 +137,6 @@ static const struct cmd_handler command_handlers[] = {
+ 	{ "splitv", cmd_splitv },
+ 	{ "sticky", cmd_sticky },
+ 	{ "swap", cmd_swap },
+-	{ "tearing_allowed", cmd_tearing_allowed },
+ 	{ "title_format", cmd_title_format },
+ 	{ "unmark", cmd_unmark },
+ 	{ "urgent", cmd_urgent },
+diff --git a/sway/commands/tearing_allowed.c b/sway/commands/allow_tearing.c
+similarity index 81%
+rename from sway/commands/tearing_allowed.c
+rename to sway/commands/allow_tearing.c
+index 94f3979c80..f70f78954f 100644
+--- a/sway/commands/tearing_allowed.c
++++ b/sway/commands/allow_tearing.c
+@@ -3,9 +3,9 @@
+ #include "sway/tree/view.h"
+ #include "util.h"
+ 
+-struct cmd_results *cmd_tearing_allowed(int argc, char **argv) {
++struct cmd_results *cmd_allow_tearing(int argc, char **argv) {
+   struct cmd_results *error = NULL;
+-	if ((error = checkarg(argc, "tearing_allowed", EXPECTED_AT_LEAST, 1))) {
++	if ((error = checkarg(argc, "allow_tearing", EXPECTED_AT_LEAST, 1))) {
+ 		return error;
+ 	}
+ 
+diff --git a/sway/commands/output.c b/sway/commands/output.c
+index 571a7c294a..e57d9a7789 100644
+--- a/sway/commands/output.c
++++ b/sway/commands/output.c
+@@ -8,6 +8,7 @@
+ // must be in order for the bsearch
+ static const struct cmd_handler output_handlers[] = {
+ 	{ "adaptive_sync", output_cmd_adaptive_sync },
++	{ "allow_tearing", output_cmd_allow_tearing },
+ 	{ "background", output_cmd_background },
+ 	{ "bg", output_cmd_background },
+ 	{ "disable", output_cmd_disable },
+@@ -25,7 +26,6 @@ static const struct cmd_handler output_handlers[] = {
+ 	{ "scale", output_cmd_scale },
+ 	{ "scale_filter", output_cmd_scale_filter },
+ 	{ "subpixel", output_cmd_subpixel },
+-	{ "tearing_allowed", output_cmd_tearing_allowed },
+ 	{ "toggle", output_cmd_toggle },
+ 	{ "transform", output_cmd_transform },
+ 	{ "unplug", output_cmd_unplug },
+diff --git a/sway/commands/output/tearing_allowed.c b/sway/commands/output/allow_tearing.c
+similarity index 77%
+rename from sway/commands/output/tearing_allowed.c
+rename to sway/commands/output/allow_tearing.c
+index 964a697029..5d6cc0f7d8 100644
+--- a/sway/commands/output/tearing_allowed.c
++++ b/sway/commands/output/allow_tearing.c
+@@ -2,12 +2,12 @@
+ #include "sway/config.h"
+ #include "util.h"
+ 
+-struct cmd_results *output_cmd_tearing_allowed(int argc, char **argv) {
++struct cmd_results *output_cmd_allow_tearing(int argc, char **argv) {
+   if (!config->handler_context.output_config) {
+ 		return cmd_results_new(CMD_FAILURE, "Missing output config");
+ 	}
+ 	if (argc == 0) {
+-		return cmd_results_new(CMD_INVALID, "Missing tearing_allowed argument");
++		return cmd_results_new(CMD_INVALID, "Missing allow_tearing argument");
+ 	}
+ 
+   if (parse_boolean(argv[0], true)) {
+diff --git a/sway/config/output.c b/sway/config/output.c
+index d0dee9833e..01390cbb70 100644
+--- a/sway/config/output.c
++++ b/sway/config/output.c
+@@ -571,7 +571,7 @@ static bool finalize_output_config(struct output_config *oc, struct sway_output
+ 	}
+ 
+ 	if (oc && oc->tearing_allowed >= 0) {
+-		sway_log(SWAY_DEBUG, "Set %s tearing allowed to %d", 
++		sway_log(SWAY_DEBUG, "Set %s allow tearing to %d", 
+ 			oc->name, oc->tearing_allowed);
+ 		output->tearing_allowed = oc->tearing_allowed;
+ 	}
+diff --git a/sway/meson.build b/sway/meson.build
+index 48f002e93c..af917ecd9d 100644
+--- a/sway/meson.build
++++ b/sway/meson.build
+@@ -42,6 +42,7 @@ sway_sources = files(
+ 	'config/seat.c',
+ 	'config/input.c',
+ 
++	'commands/allow_tearing.c',
+ 	'commands/assign.c',
+ 	'commands/bar.c',
+ 	'commands/bind.c',
+@@ -111,7 +112,6 @@ sway_sources = files(
+ 	'commands/swaybg_command.c',
+ 	'commands/swaynag_command.c',
+ 	'commands/swap.c',
+-	'commands/tearing_allowed.c',
+ 	'commands/tiling_drag.c',
+ 	'commands/tiling_drag_threshold.c',
+ 	'commands/title_align.c',
+@@ -189,6 +189,7 @@ sway_sources = files(
+ 	'commands/input/xkb_variant.c',
+ 
+ 	'commands/output/adaptive_sync.c',
++	'commands/output/allow_tearing.c',
+ 	'commands/output/background.c',
+ 	'commands/output/disable.c',
+ 	'commands/output/dpms.c',
+@@ -201,7 +202,6 @@ sway_sources = files(
+ 	'commands/output/scale.c',
+ 	'commands/output/scale_filter.c',
+ 	'commands/output/subpixel.c',
+-	'commands/output/tearing_allowed.c',
+ 	'commands/output/toggle.c',
+ 	'commands/output/transform.c',
+ 	'commands/output/unplug.c',
+diff --git a/sway/sway-output.5.scd b/sway/sway-output.5.scd
+index 5da281186b..5dd6745a0e 100644
+--- a/sway/sway-output.5.scd
++++ b/sway/sway-output.5.scd
+@@ -178,7 +178,7 @@ must be separated by one space. For example:
+ 	updated to work with different bit depths. This command is experimental,
+ 	and may be removed or changed in the future.
+ 
+-*output* <name> tearing_allowed yes|no
++*output* <name> allow_tearing yes|no
+ 	Allows or disallows screen tearing as a result of asynchronous page flips,
+ 	and an immediate presentation mode from a client.
+ 
+@@ -187,7 +187,7 @@ must be separated by one space. For example:
+ 	(VSync). This prevents stutter and reduces latency in games.
+ 
+ 	To adjust whether tearing is allowed for specific applications, see
+-	*tearing_allowed* in *sway*(5).
++	*allow_tearing* in *sway*(5).
+ 
+ 	This setting only has effect on fullscreen windows.
+ 
+diff --git a/sway/sway.5.scd b/sway/sway.5.scd
+index 116a314d30..db480fd9be 100644
+--- a/sway/sway.5.scd
++++ b/sway/sway.5.scd
+@@ -215,6 +215,20 @@ set|plus|minus|toggle <amount>
+ 	effect on the output the window is currently on. See *sway-output*(5) for
+ 	further details.
+ 
++*allow_tearing* yes|no
++	Allows or disallows screen tearing as a result of asynchronous page flips
++	for a fullscreen application.
++
++	When this option is not set, the tearing hints provided by the application
++	determine whether tearing is allowed. When _yes_ is specified,
++	the application allows tearing regardless of the tearing hints.
++	When _no_ is specified, tearing will never be allowed on the application,
++	regardless of the tearing hints.
++
++	This setting only has an effect if tearing is allowed on the output through
++	the per-output *allow_tearing* setting. See *sway-output*(5) 
++	for further details.
++
+ *move* left|right|up|down [<px> px]
+ 	Moves the focused container in the direction specified. The optional _px_
+ 	argument specifies how many pixels to move the container. If unspecified,
+@@ -353,20 +367,6 @@ set|plus|minus|toggle <amount>
+ 	becomes fullscreen on the same workspace as the first container. In either
+ 	of those cases, the second container will gain focus.
+ 
+-*tearing_allowed* yes|no
+-	Allows or disallows screen tearing as a result of asynchronous page flips
+-	for a fullscreen application.
+-
+-	When this option is not set, the tearing hints provided by the application
+-	determine whether tearing is allowed. When _yes_ is specified,
+-	the application allows tearing regardless of the tearing hints.
+-	When _no_ is specified, tearing will never be allowed on the application,
+-	regardless of the tearing hints.
+-
+-	This setting only has an effect if tearing is allowed on the output through
+-	the per-output *tearing_allowed* setting. See *sway-output*(5) 
+-	for further details.
+-
+ *title_format* <format>
+ 	Sets the format of window titles. The following placeholders may be used:
+ 

@@ -1,0 +1,434 @@
+
+From e577505c8e25e8a3b5e3f3b8ce62ea4d8c7ee332 Mon Sep 17 00:00:00 2001
+From: Ricardo Steijn <ricardo.steijn97@gmail.com>
+Date: Sun, 28 Jan 2024 01:01:04 +0100
+Subject: [PATCH 5/6] tearing_control: adjust to latest sway changes * changed
+ all remaining tearing_allowed booleans to allow_tearing to better reflect the
+ config options
+
+---
+ include/sway/config.h                |   2 +-
+ include/sway/output.h                |   3 +-
+ include/sway/tree/view.h             |   3 +-
+ sway/commands/output/allow_tearing.c |   4 +-
+ sway/config/output.c                 |  26 +++----
+ sway/desktop/output.c                | 103 +++++++++++++++------------
+ sway/desktop/tearing.c               |   6 +-
+ sway/ipc-json.c                      |   4 +-
+ sway/tree/view.c                     |   3 +-
+ swaymsg/main.c                       |   8 +--
+ 10 files changed, 91 insertions(+), 71 deletions(-)
+
+diff --git a/include/sway/config.h b/include/sway/config.h
+index deaae47f6b..edba2c1fd2 100644
+--- a/include/sway/config.h
++++ b/include/sway/config.h
+@@ -285,7 +285,7 @@ struct output_config {
+ 	enum render_bit_depth render_bit_depth;
+	bool set_color_transform;
+	struct wlr_color_transform *color_transform;
+-	int tearing_allowed;
++	int allow_tearing;
+ 
+ 	char *background;
+ 	char *background_option;
+diff --git a/include/sway/output.h b/include/sway/output.h
+index e1b3be5f8b..ccce322f57 100644
+--- a/include/sway/output.h
++++ b/include/sway/output.h
+@@ -71,7 +71,8 @@ struct sway_output {
+ 	int max_render_time; // In milliseconds
+ 	struct wl_event_source *repaint_timer;
+ 	bool gamma_lut_changed;
+-	bool tearing_allowed;
++	bool allow_tearing;
++	bool tearing_state, tearing_state_changed;
+ };
+ 
+ struct sway_output_non_desktop {
+diff --git a/include/sway/tree/view.h b/include/sway/tree/view.h
+index be34689e89..0edc888dd5 100644
+--- a/include/sway/tree/view.h
++++ b/include/sway/tree/view.h
+@@ -3,6 +3,7 @@
+ #include <wayland-server-core.h>
+ #include <wlr/types/wlr_compositor.h>
+ #include <wlr/types/wlr_scene.h>
++#include <wlr/types/wlr_tearing_control_v1.h>
+ #include "sway/config.h"
+ #if HAVE_XWAYLAND
+ #include <wlr/xwayland.h>
+@@ -118,7 +119,7 @@ struct sway_view {
+ 	enum seat_config_shortcuts_inhibit shortcuts_inhibit;
+ 
+ 	enum sway_view_tearing_mode tearing_mode;
+-	bool tearing_hint;
++	enum wp_tearing_control_v1_presentation_hint tearing_hint;
+ };
+ 
+ struct sway_xdg_shell_view {
+diff --git a/sway/commands/output/allow_tearing.c b/sway/commands/output/allow_tearing.c
+index 5d6cc0f7d8..18247c9df5 100644
+--- a/sway/commands/output/allow_tearing.c
++++ b/sway/commands/output/allow_tearing.c
+@@ -11,9 +11,9 @@ struct cmd_results *output_cmd_allow_tearing(int argc, char **argv) {
+ 	}
+ 
+   if (parse_boolean(argv[0], true)) {
+-    config->handler_context.output_config->tearing_allowed = 1;
++    config->handler_context.output_config->allow_tearing = 1;
+   } else {
+-    config->handler_context.output_config->tearing_allowed = 0;
++    config->handler_context.output_config->allow_tearing = 0;
+   }
+ 
+   config->handler_context.leftovers.argc = argc - 1;
+diff --git a/sway/config/output.c b/sway/config/output.c
+index 01390cbb70..6ba46f7529 100644
+--- a/sway/config/output.c
++++ b/sway/config/output.c
+@@ -76,7 +76,7 @@ struct output_config *new_output_config(const char *name) {
+ 	oc->adaptive_sync = -1;
+ 	oc->render_bit_depth = RENDER_BIT_DEPTH_DEFAULT;
+ 	oc->power = -1;
+-	oc->tearing_allowed = -1;
++	oc->allow_tearing = -1;
+ 	return oc;
+ }
+ 
+@@ -141,8 +141,8 @@ static void merge_output_config(struct output_config *dst, struct output_config
+ 	if (src->power != -1) {
+ 		dst->power = src->power;
+ 	}
+-	if (src->tearing_allowed != -1) {
+-		dst->tearing_allowed = src->tearing_allowed;
++	if (src->allow_tearing != -1) {
++		dst->allow_tearing = src->allow_tearing;
+ 	}
+ }
+ 
+#@@ -193,12 +193,12 @@ static void merge_id_on_name(struct output_config *oc) {
+# 			sway_log(SWAY_DEBUG, "Generated id on name output config \"%s\""
+# 				" (enabled: %d) (%dx%d@%fHz position %d,%d scale %f "
+# 				"transform %d) (bg %s %s) (power %d) (max render time: %d) "
+#-				"(tearing allowed: %d)",
+#+				"(allow tearing: %d)",
+# 				ion_oc->name, ion_oc->enabled, ion_oc->width, ion_oc->height,
+# 				ion_oc->refresh_rate, ion_oc->x, ion_oc->y, ion_oc->scale,
+# 				ion_oc->transform, ion_oc->background,
+# 				ion_oc->background_option, ion_oc->power,
+#-				ion_oc->max_render_time, ion_oc->tearing_allowed);
+#+				ion_oc->max_render_time, ion_oc->allow_tearing);
+# 		}
+# 	}
+# 	free(id_on_name);
+@@ -239,11 +239,11 @@ struct output_config *store_output_config(struct output_config *oc) {
+ 
+ 	sway_log(SWAY_DEBUG, "Config stored for output %s (enabled: %d) (%dx%d@%fHz "
+ 		"position %d,%d scale %f subpixel %s transform %d) (bg %s %s) (power %d) "
+-		"(max render time: %d) (tearing allowed: %d)",
++		"(max render time: %d) (allow tearing: %d)",
+ 		oc->name, oc->enabled, oc->width, oc->height, oc->refresh_rate,
+ 		oc->x, oc->y, oc->scale, sway_wl_output_subpixel_to_string(oc->subpixel),
+ 		oc->transform, oc->background, oc->background_option, oc->power,
+-		oc->max_render_time, oc->tearing_allowed);
++		oc->max_render_time, oc->allow_tearing);
+ 
+ 	return oc;
+ }
+@@ -570,10 +570,10 @@ static bool finalize_output_config(struct output_config *oc, struct sway_output
+		wlr_color_transform_unref(output->color_transform);
+		output->color_transform = oc->color_transform;
+	}
+-	if (oc && oc->tearing_allowed >= 0) {
++	if (oc && oc->allow_tearing >= 0) {
+ 		sway_log(SWAY_DEBUG, "Set %s allow tearing to %d", 
+-			oc->name, oc->tearing_allowed);
+-		output->tearing_allowed = oc->tearing_allowed;
++			oc->name, oc->allow_tearing);
++		output->allow_tearing = oc->allow_tearing;
+ 	}
+ 
+ 	return true;
+@@ -596,7 +596,7 @@ static void default_output_config(struct output_config *oc,
+ 	oc->subpixel = output->detected_subpixel;
+ 	oc->transform = WL_OUTPUT_TRANSFORM_NORMAL;
+ 	oc->max_render_time = 0;
+-	oc->tearing_allowed = 0;
++	oc->allow_tearing = 0;
+ }
+ 
+ static struct output_config *get_output_config(char *identifier,
+#@@ -648,11 +648,11 @@ static struct output_config *get_output_config(char *identifier,
+# 
+# 		sway_log(SWAY_DEBUG, "Generated output config \"%s\" (enabled: %d)"
+# 			" (%dx%d@%fHz position %d,%d scale %f transform %d) (bg %s %s)"
+#-			" (power %d) (max render time: %d) (tearing allowed: %d)", 
+#+			" (power %d) (max render time: %d) (allow tearing: %d)", 
+# 			result->name, result->enabled, result->width, result->height, 
+# 			result->refresh_rate, result->x, result->y, result->scale, 
+# 			result->transform, result->background, result->background_option,
+#-			result->power, result->max_render_time, result->tearing_allowed);
+#+			result->power, result->max_render_time, result->allow_tearing);
+# 	} else if (oc_name) {
+# 		// No identifier config, just return a copy of the name config
+# 		free(result->name);
+diff --git a/sway/desktop/output.c b/sway/desktop/output.c
+index 9e8094e01f..f653b97617 100644
+--- a/sway/desktop/output.c
++++ b/sway/desktop/output.c
+@@ -85,20 +85,6 @@ struct sway_workspace *output_get_active_workspace(struct sway_output *output) {
+ 	return focus->sway_workspace;
+ }
+ 
+-bool output_can_tear_fullscreen_view(struct sway_output *output, 
+-		struct sway_view *view) {
+-	if (!view) {
+-		return false;
+-	}
+-#ifdef WLR_HAS_DRM_BACKEND
+-	if (wlr_backend_is_drm(output->wlr_output->backend) && 
+-			output->tearing_allowed && view_can_tear(view)) {
+-		return true;
+-	}
+-#endif
+-	return false;
+-}
+-
+ struct send_frame_done_data {
+ 	struct timespec when;
+ 	int msec_until_refresh;
+@@ -155,6 +141,20 @@ static struct buffer_timer *buffer_timer_get_or_create(struct wlr_scene_buffer *
+ 	return timer;
+ }
+ 
++static bool output_can_tear_fullscreen_view(struct sway_output *output, 
++		struct sway_view *view) {
++	if (!view) {
++		return false;
++	}
++#ifdef WLR_HAS_DRM_BACKEND
++	if (wlr_backend_is_drm(output->wlr_output->backend) && 
++			output->allow_tearing && view_can_tear(view)) {
++		return true;
++	}
++#endif
++	return false;
++}
++
+ static void send_frame_done_iterator(struct wlr_scene_buffer *buffer,
+ 		int x, int y, void *user_data) {
+ 	struct send_frame_done_data *data = user_data;
+@@ -255,24 +255,6 @@ static void output_configure_scene(struct sway_output *output,
+ 	}
+ }
+ 
+-static struct sway_view *output_get_fullscreen_view(
+-		struct sway_output *output) {
+-	struct sway_workspace *workspace = output->current.active_workspace;
+-	if (!workspace) {
+-		return NULL;
+-	}
+-
+-	struct sway_container *fullscreen_con = root->fullscreen_global;
+-	if (!fullscreen_con) {
+-		fullscreen_con = workspace->current.fullscreen;
+-	}
+-	if (fullscreen_con) {
+-		return fullscreen_con->view;
+-	}
+-
+-	return NULL;
+-}
+-
+ static int output_repaint_timer_handler(void *data) {
+ 	struct sway_output *output = data;
+ 
+@@ -284,24 +266,37 @@ static int output_repaint_timer_handler(void *data) {
+		.color_transform = output->color_transform,
+	};
+
+-	if (output->gamma_lut_changed) {
++	if (output->gamma_lut_changed || output->tearing_state_changed) {
+ 		struct wlr_output_state pending;
++		struct wlr_gamma_control_v1 *gamma_control = NULL;
++		bool tearing_state_updated = false;
++
+ 		wlr_output_state_init(&pending);
+		if (!wlr_scene_output_build_state(output->scene_output, &pending, &opts)) {
+ 			return 0;
+ 		}
+ 
+-		output->gamma_lut_changed = false;
+-		struct wlr_gamma_control_v1 *gamma_control =
+-			wlr_gamma_control_manager_v1_get_control(
+-			server.gamma_control_manager_v1, output->wlr_output);
+-		if (!wlr_gamma_control_v1_apply(gamma_control, &pending)) {
+-			wlr_output_state_finish(&pending);
+-			return 0;
++		if (output->gamma_lut_changed) {
++			output->gamma_lut_changed = false;
++			gamma_control = wlr_gamma_control_manager_v1_get_control(
++				server.gamma_control_manager_v1, output->wlr_output);
++			if (!wlr_gamma_control_v1_apply(gamma_control, &pending)) {
++				wlr_output_state_finish(&pending);
++				return 0;
++			}
++		}
++
++		if (output->tearing_state_changed) {
++			output->tearing_state_changed = false;
++			pending.tearing_page_flip = output->tearing_state;
++			tearing_state_updated = true;
+ 		}
+ 
+ 		if (!wlr_output_commit_state(output->wlr_output, &pending)) {
+ 			wlr_gamma_control_v1_send_failed_and_destroy(gamma_control);
++			if (tearing_state_updated) {
++				output->allow_tearing = false;
++			}
+ 			wlr_output_state_finish(&pending);
+ 			return 0;
+ 		}
+@@ -314,6 +309,24 @@ static int output_repaint_timer_handler(void *data) {
+ 	return 0;
+ }
+ 
++static struct sway_view *output_get_fullscreen_view(
++		struct sway_output *output) {
++	struct sway_workspace *workspace = output->current.active_workspace;
++	if (!workspace) {
++		return NULL;
++	}
++
++	struct sway_container *fullscreen_con = root->fullscreen_global;
++	if (!fullscreen_con) {
++		fullscreen_con = workspace->current.fullscreen;
++	}
++	if (fullscreen_con) {
++		return fullscreen_con->view;
++	}
++
++	return NULL;
++}
++
+ static void handle_frame(struct wl_listener *listener, void *user_data) {
+ 	struct sway_output *output =
+ 		wl_container_of(listener, output, frame);
+@@ -362,13 +375,15 @@ static void handle_frame(struct wl_listener *listener, void *user_data) {
+ 	int delay = msec_until_refresh - output->max_render_time;
+ 
+ 	struct sway_view *fullscreen_view = output_get_fullscreen_view(output);
+-	if (output_can_tear_fullscreen_view(output, fullscreen_view)) {
+-		delay = 0;
++	bool can_tear = output_can_tear_fullscreen_view(output, fullscreen_view);
++	if (can_tear != output->tearing_state) {
++		output->tearing_state_changed = true;
+ 	}
++	output->tearing_state = can_tear;
+ 
+ 	// If the delay is less than 1 millisecond (which is the least we can wait)
+-	// then just render right away.
+-	if (delay < 1) {
++	// or if the output is allowed to tear, then just render right away.
++	if (delay < 1 || can_tear) {
+ 		output_repaint_timer_handler(output);
+ 	} else {
+ 		output->wlr_output->frame_pending = true;
+diff --git a/sway/desktop/tearing.c b/sway/desktop/tearing.c
+index 27ee80db5e..36cc48bfeb 100644
+--- a/sway/desktop/tearing.c
++++ b/sway/desktop/tearing.c
+@@ -1,6 +1,8 @@
+ #include <wayland-server-core.h>
++#include <wlr/types/wlr_tearing_control_v1.h>
+ #include "sway/server.h"
+ #include "sway/tree/view.h"
++#include "sway/output.h"
+ #include "log.h"
+ 
+ struct sway_tearing_controller {
+@@ -19,12 +21,12 @@ static void handle_tearing_controller_set_hint(struct wl_listener *listener,
+ 	struct sway_view *view = view_from_wlr_surface(
+ 		controller->tearing_control->surface);
+ 	if (view) {
+-		view->tearing_hint = controller->tearing_control->hint;
++		view->tearing_hint = controller->tearing_control->current;
+ 	}
+ }
+ 
+ static void handle_tearing_controller_destroy(struct wl_listener *listener, 
+-    void *data) {
++		void *data) {
+ 	struct sway_tearing_controller *controller = 
+ 		wl_container_of(listener, controller, destroy);
+ 	wl_list_remove(&controller->link);
+diff --git a/sway/ipc-json.c b/sway/ipc-json.c
+index 047aeb226a..22d81c5da7 100644
+--- a/sway/ipc-json.c
++++ b/sway/ipc-json.c
+@@ -399,7 +399,7 @@ static void ipc_json_describe_enabled_output(struct sway_output *output,
+ 
+ 	json_object_object_add(object, "max_render_time", json_object_new_int(output->max_render_time));
+ 
+-	json_object_object_add(object, "tearing_allowed", json_object_new_boolean(output->tearing_allowed));
++	json_object_object_add(object, "allow_tearing", json_object_new_boolean(output->allow_tearing));
+ }
+ 
+ json_object *ipc_json_describe_disabled_output(struct sway_output *output) {
+@@ -593,7 +593,7 @@ static void ipc_json_describe_view(struct sway_container *c, json_object *object
+ 
+ 	json_object_object_add(object, "max_render_time", json_object_new_int(c->view->max_render_time));
+ 
+-	json_object_object_add(object, "tearing_allowed", json_object_new_boolean(view_can_tear(c->view)));
++	json_object_object_add(object, "allow_tearing", json_object_new_boolean(view_can_tear(c->view)));
+ 
+ 	json_object_object_add(object, "shell", json_object_new_string(view_get_shell(c->view)));
+ 
+diff --git a/sway/tree/view.c b/sway/tree/view.c
+index d513511d34..2462db1bd9 100644
+--- a/sway/tree/view.c
++++ b/sway/tree/view.c
+@@ -1252,7 +1252,8 @@ bool view_can_tear(struct sway_view *view) {
+ 	case TEARING_OVERRIDE_TRUE:
+ 		return true;
+ 	case TEARING_WINDOW_HINT:
+-		return view->tearing_hint;
++		return view->tearing_hint == 
++			WP_TEARING_CONTROL_V1_PRESENTATION_HINT_ASYNC;
+ 	}
+ 	return false;
+ }
+diff --git a/swaymsg/main.c b/swaymsg/main.c
+index 39cac2a6ae..5c57171e7c 100644
+--- a/swaymsg/main.c
++++ b/swaymsg/main.c
+@@ -193,7 +193,7 @@ static void pretty_print_output(json_object *o) {
+ 	json_object_object_get_ex(o, "current_workspace", &ws);
+ 	json_object_object_get_ex(o, "non_desktop", &non_desktop);
+ 	json_object *make, *model, *serial, *scale, *scale_filter, *subpixel,
+-		*transform, *max_render_time, *adaptive_sync_status, *tearing_allowed;
++		*transform, *max_render_time, *adaptive_sync_status, *allow_tearing;
+ 	json_object_object_get_ex(o, "make", &make);
+ 	json_object_object_get_ex(o, "model", &model);
+ 	json_object_object_get_ex(o, "serial", &serial);
+@@ -203,7 +203,7 @@ static void pretty_print_output(json_object *o) {
+ 	json_object_object_get_ex(o, "transform", &transform);
+ 	json_object_object_get_ex(o, "max_render_time", &max_render_time);
+ 	json_object_object_get_ex(o, "adaptive_sync_status", &adaptive_sync_status);
+-	json_object_object_get_ex(o, "tearing_allowed", &tearing_allowed);
++	json_object_object_get_ex(o, "allow_tearing", &allow_tearing);
+ 	json_object *x, *y;
+ 	json_object_object_get_ex(rect, "x", &x);
+ 	json_object_object_get_ex(rect, "y", &y);
+@@ -258,8 +258,8 @@ static void pretty_print_output(json_object *o) {
+ 		printf("  Adaptive sync: %s\n",
+ 			json_object_get_string(adaptive_sync_status));
+ 
+-		printf("  Tearing allowed: %s\n",
+-			json_object_get_boolean(tearing_allowed) ? "yes" : "no");
++		printf("  Allow tearing: %s\n",
++			json_object_get_boolean(allow_tearing) ? "yes" : "no");
+ 	} else {
+ 		printf(
+ 			"Output %s '%s %s %s' (disabled)\n",

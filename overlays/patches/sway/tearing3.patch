@@ -1,0 +1,47 @@
+
+From 49e75c3951a1318f24acbf921384c8d6b51e7424 Mon Sep 17 00:00:00 2001
+From: Ricardo Steijn <ricardo.steijn97@gmail.com>
+Date: Sat, 21 Oct 2023 16:05:14 +0200
+Subject: [PATCH 3/6] format
+
+---
+ sway/commands/output/tearing_allowed.c | 2 +-
+ sway/commands/tearing_allowed.c        | 2 +-
+ sway/desktop/tearing.c                 | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/sway/commands/output/tearing_allowed.c b/sway/commands/output/tearing_allowed.c
+index 143384e341..964a697029 100644
+--- a/sway/commands/output/tearing_allowed.c
++++ b/sway/commands/output/tearing_allowed.c
+@@ -19,4 +19,4 @@ struct cmd_results *output_cmd_tearing_allowed(int argc, char **argv) {
+   config->handler_context.leftovers.argc = argc - 1;
+   config->handler_context.leftovers.argv = argv + 1;
+   return NULL;
+-}
+\ No newline at end of file
++}
+diff --git a/sway/commands/tearing_allowed.c b/sway/commands/tearing_allowed.c
+index 8fe6662fc3..94f3979c80 100644
+--- a/sway/commands/tearing_allowed.c
++++ b/sway/commands/tearing_allowed.c
+@@ -22,4 +22,4 @@ struct cmd_results *cmd_tearing_allowed(int argc, char **argv) {
+     TEARING_OVERRIDE_FALSE;
+ 
+   return cmd_results_new(CMD_SUCCESS, NULL);
+-}
+\ No newline at end of file
++}
+diff --git a/sway/desktop/tearing.c b/sway/desktop/tearing.c
+index 7838d250f6..27ee80db5e 100644
+--- a/sway/desktop/tearing.c
++++ b/sway/desktop/tearing.c
+@@ -25,7 +25,7 @@ static void handle_tearing_controller_set_hint(struct wl_listener *listener,
+ 
+ static void handle_tearing_controller_destroy(struct wl_listener *listener, 
+     void *data) {
+-  struct sway_tearing_controller *controller = 
++	struct sway_tearing_controller *controller = 
+ 		wl_container_of(listener, controller, destroy);
+ 	wl_list_remove(&controller->link);
+ 	free(controller);

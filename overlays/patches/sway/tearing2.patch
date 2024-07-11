@@ -1,0 +1,25 @@
+From 55ec4e4af99a1831554b7daf26fb18bbc2d0be96 Mon Sep 17 00:00:00 2001
+From: Ricardo Steijn <ricardo.steijn97@gmail.com>
+Date: Sat, 14 Oct 2023 18:46:12 +0200
+Subject: [PATCH 2/6] sway/desktop/output.c: adjust to upstream tearing_control
+ changes
+
+---
+ sway/desktop/tearing.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sway/desktop/tearing.c b/sway/desktop/tearing.c
+index 28d83f047e..7838d250f6 100644
+--- a/sway/desktop/tearing.c
++++ b/sway/desktop/tearing.c
+@@ -26,8 +26,8 @@ static void handle_tearing_controller_set_hint(struct wl_listener *listener,
+ static void handle_tearing_controller_destroy(struct wl_listener *listener, 
+     void *data) {
+   struct sway_tearing_controller *controller = 
+-    wl_container_of(listener, controller, destroy);
+-  wl_list_remove(&controller->link);
++		wl_container_of(listener, controller, destroy);
++	wl_list_remove(&controller->link);
+ 	free(controller);
+ }
+ 

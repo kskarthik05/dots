@@ -1,16 +1,21 @@
 { config, pkgs, pkgs-unstable, inputs, ... }:
 let
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
-in {
+in {2
   home.packages = with pkgs; [
-    mp3info
+    gnumake bc sassc librsvg 
+    glib
+    pywal
+    playerctl
+    libnotify
+    swaylock-effects
+    cinnamon.nemo
     pkgs-unstable.osu-lazer-bin
     discord
     nur.repos.ataraxiasjel.waydroid-script
     unigine-valley
     krita
     pciutils
-    gedit
     gnome.dconf-editor
     distrobox
     chromium
@@ -48,4 +53,8 @@ in {
     #Custom
     (callPackage ../../pkgs/bgScripts.nix { })
   ];
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib openssl.dev pkg-config]);
+  };
 }
