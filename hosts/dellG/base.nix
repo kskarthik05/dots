@@ -3,6 +3,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs-unstable.linuxPackages_zen;
   time.timeZone = "Asia/Kolkata";
+  environment.systemPackages = with pkgs-unstable;[ lutris wineWowPackages.waylandFull steam ];
   environment.etc = { "machine-id".source = "/nix/persist/etc/machine-id"; };
   fileSystems."/var/log" = {
     device = "/nix/persist/var/log";

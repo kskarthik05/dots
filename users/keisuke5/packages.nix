@@ -3,11 +3,13 @@ let
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
 in {
   home.packages = with pkgs; [
+    vscode.fhs
+    slack
+    zoom-us
     mp3info
     pkgs-unstable.osu-lazer-bin
     discord
     nur.repos.ataraxiasjel.waydroid-script
-    unigine-valley
     krita
     pciutils
     gedit
@@ -18,8 +20,6 @@ in {
     jre
     ffmpeg
     pulseaudio
-    lutris
-    pkgs-unstable.wineWowPackages.staging
     firefox
     pavucontrol
     r2modman
@@ -40,7 +40,6 @@ in {
     flac
     unar
     brightnessctl
-    steam
     steam-run
     mangohud
     glxinfo
