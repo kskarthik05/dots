@@ -39,9 +39,7 @@ let
 
       # Set the background image
       cp "$unique_bg_path" ~/".background-image"
-      feh --bg-fill ~/.background-image
-      gsettings set org.gnome.desktop.background picture-uri-dark "file://$HOME/.background-image"
-      gsettings set org.gnome.desktop.background picture-uri "file://$HOME/.background-image"
+      plasma-apply-wallpaperimage "$unique_bg_path"
  '';
   };
   savebg = pkgs.writeShellApplication {
@@ -56,10 +54,9 @@ let
     name = "switchbg";
     inherit runtimeInputs;
     text = ''
-      cp  "$(find ~/Pictures/backgrounds -type f | shuf -n 1)" ~/.background-image
-      feh --bg-fill ~/.background-image
-      gsettings set org.gnome.desktop.background picture-uri-dark "file://$HOME/.background-image"
-      gsettings set org.gnome.desktop.background picture-uri "file://$HOME/.background-image"
+      bg_path=$(find ~/Pictures/backgrounds -type f | shuf -n 1)
+      cp "$bg_path" ~/.background-image
+      plasma-apply-wallpaperimage "$bg_path"
     '';
   };
 in stdenv.mkDerivation {
