@@ -11,6 +11,14 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec "$@"
   '';
+  vfio-start = pkgs.writeShellScriptBin "vfio-start" ''
+    sudo modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
+    virsh start --domain win11
+  '';
+  vfio-kill = pkgs.writeShellScriptBin "vfio-kill" ''
+    virsh destroy --domain win11
+    sudo modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
+  '';
 in {
   boot = {
     kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
@@ -46,6 +54,8 @@ in {
     looking-glass-client
     virtiofsd
     nvidia-offload
+    vfio-start
+    vfio-kill
     killall
     lsof
     psmisc
@@ -58,6 +68,12 @@ in {
   };
   fileSystems."/var/lib/libvirt" = {
     device = "/nix/persist/var/lib/libvirt";
+    fsType = "none";
+    options = [ "bind" ];
+    neededForBoot = true;
+  };
+  fileSystems."/var/lib/samba" = {
+    device = "/nix/persist/var/lib/samba";
     fsType = "none";
     options = [ "bind" ];
     neededForBoot = true;
@@ -99,5 +115,7 @@ in {
   };
   systemd.services.libvirtd.wantedBy = lib.mkForce [ ];
   systemd.services.libvirt-guests.wantedBy = lib.mkForce [ ];
+  services.displayManager.defaultSession = lib.mkForce "plasma";
+  services.displayManager.sddm.wayland.enable = true;
 }
 

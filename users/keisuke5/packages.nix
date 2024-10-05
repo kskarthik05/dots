@@ -1,11 +1,12 @@
 { config, pkgs, pkgs-unstable, inputs, ... }:
 let
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
+  nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
 in {
   home.packages = with pkgs; [
+    pipewire.jack
     discord
     nur.repos.ataraxiasjel.waydroid-script
-    unigine-valley
     krita
     pciutils
     gnome.dconf-editor

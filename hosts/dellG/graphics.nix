@@ -3,19 +3,8 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs-unstable; [
-      nvidia-vaapi-driver
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-    extraPackages32 = with pkgs-unstable.pkgsi686Linux; [
-      nvidia-vaapi-driver
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
   };
+  boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
   hardware.nvidia = {
     nvidiaSettings = true;
     modesetting.enable = true;

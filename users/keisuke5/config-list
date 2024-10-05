@@ -1,4 +1,4 @@
-export path = (
-		$HOME/.config/
+export config_paths = (
+		$HOME/.config/kglobalshortcutsrc
               )
 
