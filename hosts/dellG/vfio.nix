@@ -11,14 +11,6 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec "$@"
   '';
-  vfio-start = pkgs.writeShellScriptBin "vfio-start" ''
-    sudo modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
-    virsh start --domain win11
-  '';
-  vfio-kill = pkgs.writeShellScriptBin "vfio-kill" ''
-    virsh destroy --domain win11
-    sudo modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
-  '';
 in {
   boot = {
     kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
@@ -45,6 +37,16 @@ in {
       ovmf.packages = [ pkgs.OVMFFull.fd ];
       swtpm.enable = true;
     };
+  };
+  systemd.services.libvirtd = {
+    preStart =  ''
+      mkdir -p /var/lib/libvirt/hooks/qemu.d/win11/prepare/begin
+      mkdir -p /var/lib/libvirt/hooks/qemu.d/win11/release/end
+      ln -sf ../../scripts/vfio/win11/start.sh /var/lib/libvirt/hooks/qemu.d/win11/prepare/begin/start.sh
+      ln -sf ../../scripts/vfio/win11/stop.sh /var/lib/libvirt/hooks/qemu.d/win11/release/end/stop.sh
+      chmod +x /var/lib/libvirt/hooks/qemu.d/win11/prepare/begin/start.sh
+      chmod +x /var/lib/libvirt/hooks/qemu.d/win11/release/end/stop.sh
+    '';
   };
   programs.virt-manager.enable = true;
   systemd.tmpfiles.rules =
@@ -78,6 +80,7 @@ in {
     options = [ "bind" ];
     neededForBoot = true;
   };
+  
   networking.firewall.trustedInterfaces = [ "virbr0" ];
   services.samba = {
     enable = true;
