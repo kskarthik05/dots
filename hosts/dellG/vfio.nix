@@ -1,5 +1,26 @@
 { pkgs, lib, config, ... }:
 let
+  vm_hook = pkgs.writers.writeBash "vm-hook" ''
+    # Variables
+    GUEST_NAME="$1"
+    OPERATION="$2"
+    SUB_OPERATION="$3"
+
+    # Run commands when the vm is started/stopped.
+    if [ "$GUEST_NAME" == "win11" ]; then
+      if [ "$OPERATION" == "prepare" ]; then
+        if [ "$SUB_OPERATION" == "begin" ]; then
+          modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
+        fi
+      fi
+
+      if [ "$OPERATION" == "release" ]; then
+        if [ "$SUB_OPERATION" == "end" ]; then
+          modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
+        fi
+      fi
+    fi
+  '';
   gpuIDs = [
     "10de:25e2" # Graphics
     "10de:2291" # Audio
@@ -37,16 +58,9 @@ in {
       ovmf.packages = [ pkgs.OVMFFull.fd ];
       swtpm.enable = true;
     };
-  };
-  systemd.services.libvirtd = {
-    preStart =  ''
-      mkdir -p /var/lib/libvirt/hooks/qemu.d/win11/prepare/begin
-      mkdir -p /var/lib/libvirt/hooks/qemu.d/win11/release/end
-      ln -sf ../../scripts/vfio/win11/start.sh /var/lib/libvirt/hooks/qemu.d/win11/prepare/begin/start.sh
-      ln -sf ../../scripts/vfio/win11/stop.sh /var/lib/libvirt/hooks/qemu.d/win11/release/end/stop.sh
-      chmod +x /var/lib/libvirt/hooks/qemu.d/win11/prepare/begin/start.sh
-      chmod +x /var/lib/libvirt/hooks/qemu.d/win11/release/end/stop.sh
-    '';
+    hooks.qemu = {
+      vm_hook = "${vm_hook}";
+    };  
   };
   programs.virt-manager.enable = true;
   systemd.tmpfiles.rules =
@@ -56,8 +70,6 @@ in {
     looking-glass-client
     virtiofsd
     nvidia-offload
-    vfio-start
-    vfio-kill
     killall
     lsof
     psmisc
@@ -68,8 +80,20 @@ in {
       "/run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json";
     __GLX_VENDOR_LIBRARY_NAME = "mesa";
   };
-  fileSystems."/var/lib/libvirt" = {
-    device = "/nix/persist/var/lib/libvirt";
+  fileSystems."/var/lib/libvirt/images" = {
+    device = "/nix/persist/var/lib/libvirt/images";
+    fsType = "none";
+    options = [ "bind" ];
+    neededForBoot = true;
+  };
+  fileSystems."/var/lib/libvirt/ovmf" = {
+    device = "/nix/persist/var/lib/libvirt/ovmf";
+    fsType = "none";
+    options = [ "bind" ];
+    neededForBoot = true;
+  };
+  fileSystems."/var/lib/libvirt/qemu" = {
+    device = "/nix/persist/var/lib/libvirt/qemu";
     fsType = "none";
     options = [ "bind" ];
     neededForBoot = true;
