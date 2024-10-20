@@ -7,6 +7,7 @@ in {
     pipewire.jack
     discord
     nur.repos.ataraxiasjel.waydroid-script
+    pkgs-unstable.osu-lazer-bin
     krita
     pciutils
     gnome.dconf-editor
@@ -37,6 +38,7 @@ in {
     tree
     dunst
     flac
+    mp3info
     unar
     brightnessctl
     steam
