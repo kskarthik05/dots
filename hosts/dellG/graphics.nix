@@ -1,9 +1,5 @@
 {config, pkgs-unstable, ... }:{
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  hardware.graphics.enable = true;
   boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
   hardware.nvidia = {
     nvidiaSettings = true;

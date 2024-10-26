@@ -11,6 +11,7 @@ let
       if [ "$OPERATION" == "prepare" ]; then
         if [ "$SUB_OPERATION" == "begin" ]; then
           modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
+	  looking-glass-client
         fi
       fi
 
@@ -108,36 +109,38 @@ in {
   networking.firewall.trustedInterfaces = [ "virbr0" ];
   services.samba = {
     enable = true;
-    securityType = "user";
     openFirewall = true;
-    extraConfig = ''
-      server string = smbnix
-      netbios name = smbnix
-      security = user 
-      usershare allow guests = yes
-      bind interfaces only = yes
-      interfaces = virbr0
-      guest account = nobody
-      map to guest = bad user
-      force user = keisuke5
-      ntlm auth = true
-      acl allow execute always = True
-    '';
-    shares = {
-      games = {
-        path = "/home/keisuke5/Games";
-        browseable = "yes";
-        writeable = "yes";
+    securityType = "user";
+    settings = {
+    global = {
+      "workgroup" = "WORKGROUP";
+      "server string" = "smbnix";
+      "netbios name" = "smbnix";
+      "security" = "user";
+      #"use sendfile" = "yes";
+      #"max protocol" = "smb2";
+      # note: localhost is the ipv6 localhost ::1
+      "hosts allow" = "192.168.0. 192.168.122. 127.0.0.1 localhost";
+      "hosts deny" = "0.0.0.0/0";
+      "guest account" = "nobody";
+      "map to guest" = "bad user";
+      "ntlm auth" = "True";
+      "acl allow execute always" = "True";
+    };
+      "games" = {
+        "path" = "/home/keisuke5/Games";
+        "browseable" = "yes";
+        "writeable" = "yes";
         "read only" = "no";
         "guest ok" = "yes";
         "follow symlinks" = "yes";
         "allow insecure wide links" = "yes";
         "wide links" = "yes";
-        "create mask" = 644;
-        "force create mode" = 644;
-        "directory mask" = 755;
-        "force directory mode" = 755;
-      };
+        "create mask" = "0644";
+        "force create mode" = "0644";
+        "directory mask" = "0755";
+        "force directory mode" = "0755";
+    };
     };
   };
   systemd.services.libvirtd.wantedBy = lib.mkForce [ ];

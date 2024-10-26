@@ -4,6 +4,7 @@ let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
 in {
   home.packages = with pkgs; [
+    soundkonverter
     pipewire.jack
     discord
     nur.repos.ataraxiasjel.waydroid-script
@@ -38,7 +39,7 @@ in {
     tree
     dunst
     flac
-    mp3info
+    tagger
     unar
     brightnessctl
     steam
