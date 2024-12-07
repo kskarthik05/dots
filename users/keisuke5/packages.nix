@@ -3,12 +3,14 @@ let
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
 in {
-  home.packages = with pkgs; [
+  home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [
     soundkonverter
+    mp3gain
+#    osu-lazer-bin
+#    inputs.etterna.packages.x86_64-linux.etterna
     pipewire.jack
     discord
     nur.repos.ataraxiasjel.waydroid-script
-    pkgs-unstable.osu-lazer-bin
     krita
     pciutils
     gnome.dconf-editor
@@ -39,7 +41,6 @@ in {
     tree
     dunst
     flac
-    tagger
     unar
     brightnessctl
     steam

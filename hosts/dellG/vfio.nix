@@ -1,5 +1,23 @@
 { pkgs, lib, config, ... }:
 let
+  vfio-start = pkgs.writeShellScriptBin "vfio-start" ''
+    sudo modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
+    virsh start --domain win11
+  '';
+
+  vfio-kill = pkgs.writeShellScriptBin "vfio-kill" ''
+    virsh destroy --domain win11
+    sudo modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
+  '' 
+
+  gpu-disable = pkgs.writeShellScriptBin "gpu-disable" ''
+    sudo modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
+  '';
+
+  gpu-enable = pkgs.writeShellScriptBin "gpu-enable" ''
+    sudo modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
+  ''
+
   vm_hook = pkgs.writers.writeBash "vm-hook" ''
     # Variables
     GUEST_NAME="$1"
@@ -67,6 +85,10 @@ in {
   systemd.tmpfiles.rules =
     [ "f /dev/shm/looking-glass 0660 keisuke5 qemu-libvirtd -" ];
   environment.systemPackages = with pkgs; [
+    vfio-start
+    vfio-kill
+    gpu-enable
+    gpu-disable
     scream
     looking-glass-client
     virtiofsd

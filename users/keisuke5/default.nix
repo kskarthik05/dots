@@ -31,7 +31,7 @@
       ccd = "cd $HOME/.dots/users/$USER/config";
       cud = "cd $HOME/.dots/users/$USER";
       csd = "cd $HOME/.dots/hosts/dellG";
-      nfu = "cd $HOME/.dots/ && git add . && git commit -m \"FLAKE UPDATE\" && git push && sudo nix flake update .";
+      nfu = "cd $HOME/.dots/ && git add . && git commit -m \"FLAKE UPDATE\" && git push && sudo nix --flake update .";
       ncl = "sudo nix-collect-garbage";
       nclf = "sudo nix-collect-garbage -d && sudo /run/current-system/bin/switch-to-configuration boot";
     };
