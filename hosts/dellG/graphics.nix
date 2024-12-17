@@ -1,5 +1,8 @@
-{config, pkgs-unstable, ... }:{
-  hardware.graphics.enable = true;
+{config, pkgs-unstable, pkgs, ... }:{
+  hardware.graphics = { 
+    enable = true;
+    enable32Bit = true;
+  };
   boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
   hardware.nvidia = {
     nvidiaSettings = true;

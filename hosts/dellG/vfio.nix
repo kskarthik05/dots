@@ -8,7 +8,7 @@ let
   vfio-kill = pkgs.writeShellScriptBin "vfio-kill" ''
     virsh destroy --domain win11
     sudo modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
-  '' 
+  ''; 
 
   gpu-disable = pkgs.writeShellScriptBin "gpu-disable" ''
     sudo modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
@@ -16,7 +16,7 @@ let
 
   gpu-enable = pkgs.writeShellScriptBin "gpu-enable" ''
     sudo modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
-  ''
+  '';
 
   vm_hook = pkgs.writers.writeBash "vm-hook" ''
     # Variables
@@ -132,7 +132,6 @@ in {
   services.samba = {
     enable = true;
     openFirewall = true;
-    securityType = "user";
     settings = {
     global = {
       "workgroup" = "WORKGROUP";

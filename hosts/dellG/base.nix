@@ -1,7 +1,7 @@
 { config, lib, pkgs-unstable, ... }: {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs-unstable.linuxPackages-rt_latest;
+  boot.kernelPackages = pkgs-unstable.linuxPackages_xanmod_latest;
   time.timeZone = "Asia/Kolkata";
   environment.etc = { "machine-id".source = "/nix/persist/etc/machine-id"; };
   fileSystems."/var/log" = {
@@ -12,6 +12,9 @@
   };
   networking.hostName = "nixos-dellG";
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "dotnet-runtime-6.0.36"
+  ];
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;

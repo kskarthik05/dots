@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, inputs, ... }:
+{ config, pkgs, pkgs-lutris-pin, pkgs-unstable, inputs, ... }:
 let
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
@@ -6,10 +6,11 @@ in {
   home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [
     soundkonverter
     mp3gain
+#    nix-gaming.packages.${pkgs.hostPlatform.system}.osu-stable
 #    osu-lazer-bin
 #    inputs.etterna.packages.x86_64-linux.etterna
     pipewire.jack
-    discord
+    pkgs-unstable.discord-canary
     nur.repos.ataraxiasjel.waydroid-script
     krita
     pciutils
@@ -20,7 +21,7 @@ in {
     jre
     ffmpeg
     pulseaudio
-    lutris
+    pkgs-unstable.lutris
     pkgs-unstable.wineWowPackages.staging
     firefox
     pavucontrol
@@ -39,11 +40,9 @@ in {
     mpv
     transmission-gtk
     tree
-    dunst
     flac
     unar
     brightnessctl
-    steam
     steam-run
     mangohud
     glxinfo
