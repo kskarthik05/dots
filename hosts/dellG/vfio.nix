@@ -55,7 +55,8 @@ in {
   boot = {
     kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
     kernelParams = [ "intel_iommu=on" ];
-    blacklistedKernelModules = [ "nouveau" ];
+    blacklistedKernelModules = [ "nouveau" "nvidia_uvm" "nvidia_drm" "nvidia_modeset" "nvidia" ];
+    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   };
   hardware.nvidia.prime = {
     sync.enable = lib.mkForce false;
@@ -64,6 +65,7 @@ in {
       enableOffloadCmd = true;
     };
   };
+
   boot.extraModprobeConfig = ''
     options nvidia_drm modeset=0
   '';
@@ -96,6 +98,7 @@ in {
     killall
     lsof
     psmisc
+    config.boot.kernelPackages.nvidia_x11
   ];
   environment.sessionVariables = {
     LIBVIRT_DEFAULT_URI = [ "qemu:///system" ];
@@ -166,7 +169,11 @@ in {
   };
   systemd.services.libvirtd.wantedBy = lib.mkForce [ ];
   systemd.services.libvirt-guests.wantedBy = lib.mkForce [ ];
-  services.displayManager.defaultSession = lib.mkForce "plasma";
-  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.defaultSession = lib.mkForce "plasmax11";
+  services.xserver.videoDrivers  = lib.mkForce [
+    "modesetting"
+    "fbdev"
+    "nvidia"
+  ];
 }
 

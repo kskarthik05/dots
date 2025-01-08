@@ -1,8 +1,8 @@
-{ pkgs-lutris-pin, ... }:{
+{ pkgs-unstable, ... }:{
   hardware.opentabletdriver = {
     enable = true;
     daemon.enable = false;
-    package = pkgs-lutris-pin.opentabletdriver;
+    package = pkgs-unstable.opentabletdriver;
   };
   environment.etc = {
     "libinput/local-overrides.quirks".source =

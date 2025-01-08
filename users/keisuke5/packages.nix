@@ -4,6 +4,9 @@ let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
 in {
   home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [
+    wget
+    unzip
+    zenity
     soundkonverter
     mp3gain
 #    nix-gaming.packages.${pkgs.hostPlatform.system}.osu-stable
