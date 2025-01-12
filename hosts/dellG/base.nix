@@ -3,18 +3,15 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
   time.timeZone = "Asia/Kolkata";
-  environment.etc = { "machine-id".source = "/nix/persist/etc/machine-id"; };
+  environment.etc = { "machine-id".source = "/persist/etc/machine-id"; };
   fileSystems."/var/log" = {
-    device = "/nix/persist/var/log";
+    device = "/persist/var/log";
     fsType = "none";
     options = [ "bind" ];
     neededForBoot = true;
   };
   networking.hostName = "nixos-dellG";
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "dotnet-runtime-6.0.36"
-  ];
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;

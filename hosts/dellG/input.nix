@@ -4,8 +4,11 @@
     daemon.enable = false;
     package = pkgs-unstable.opentabletdriver;
   };
+  nixpkgs.config.permittedInsecurePackages = [
+    "dotnet-runtime-6.0.36"
+  ];
   environment.etc = {
     "libinput/local-overrides.quirks".source =
-      "/nix/persist/etc/libinput/local-overrides.quirks";
+      "/persist/etc/libinput/local-overrides.quirks";
   };
 }

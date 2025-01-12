@@ -107,28 +107,24 @@ in {
     __GLX_VENDOR_LIBRARY_NAME = "mesa";
   };
   fileSystems."/var/lib/libvirt/images" = {
-    device = "/nix/persist/var/lib/libvirt/images";
+    device = "/persist/var/lib/libvirt/images";
     fsType = "none";
     options = [ "bind" ];
-    neededForBoot = true;
   };
   fileSystems."/var/lib/libvirt/ovmf" = {
-    device = "/nix/persist/var/lib/libvirt/ovmf";
+    device = "/persist/var/lib/libvirt/ovmf";
     fsType = "none";
     options = [ "bind" ];
-    neededForBoot = true;
   };
   fileSystems."/var/lib/libvirt/qemu" = {
-    device = "/nix/persist/var/lib/libvirt/qemu";
+    device = "/persist/var/lib/libvirt/qemu";
     fsType = "none";
     options = [ "bind" ];
-    neededForBoot = true;
   };
   fileSystems."/var/lib/samba" = {
-    device = "/nix/persist/var/lib/samba";
+    device = "/persist/var/lib/samba";
     fsType = "none";
     options = [ "bind" ];
-    neededForBoot = true;
   };
   
   networking.firewall.trustedInterfaces = [ "virbr0" ];
