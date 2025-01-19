@@ -84,8 +84,10 @@ in {
     };  
   };
   programs.virt-manager.enable = true;
-  systemd.tmpfiles.rules =
-    [ "f /dev/shm/looking-glass 0660 keisuke5 qemu-libvirtd -" ];
+  systemd.tmpfiles.rules = [ 
+    "f /dev/shm/looking-glass 0660 keisuke5 qemu-libvirtd -" 
+    "L /var/lib/libvirt/qemu/win11.xml - - - - /persist/var/lib/libvirt/qemu/win11.xml"
+  ];
   environment.systemPackages = with pkgs; [
     vfio-start
     vfio-kill
@@ -116,8 +118,8 @@ in {
     fsType = "none";
     options = [ "bind" ];
   };
-  fileSystems."/var/lib/libvirt/qemu" = {
-    device = "/persist/var/lib/libvirt/qemu";
+  fileSystems."/var/lib/libvirt/qemu/networks" = {
+    device = "/persist/var/lib/libvirt/qemu/networks";
     fsType = "none";
     options = [ "bind" ];
   };

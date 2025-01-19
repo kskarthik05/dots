@@ -1,4 +1,4 @@
-{config, pkgs-unstable, pkgs, ... }:{
+{config, ... }:{
   hardware.graphics = { 
     enable = true;
     enable32Bit = true;
@@ -15,7 +15,7 @@
       nvidiaBusId = "PCI:1:0:0";
     };
     powerManagement.finegrained = false;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
   services.xserver.videoDrivers = [ "nvidia" ];
 }

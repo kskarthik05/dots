@@ -32,14 +32,14 @@
       options = [ "subvol=nix" "rw" "ssd" "space_cache=v2" "noatime" "discard=async" ];
     };
 
-  fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/144f1433-1894-4395-966e-a9fcee371101";
-      fsType = "btrfs";
-    };
-
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/3337-D467";
       fsType = "vfat";
+    };
+
+  fileSystems."/persist" =
+    { device = "/dev/disk/by-uuid/de720c41-1f62-4ccb-83e4-cf3b42003db7";
+      fsType = "ext4";
     };
 
   swapDevices = [ ];
