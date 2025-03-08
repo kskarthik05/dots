@@ -22,6 +22,7 @@
     { device = "/dev/disk/by-uuid/6b74c9c9-1c4b-4360-9534-daaa94160697";
       fsType = "btrfs";
       options = [ "subvol=home" "rw" "ssd" "space_cache=v2" "noatime" "discard=async" ];
+      neededForBoot = true;
     };
 
   boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/45362cde-8b2b-4366-906d-b38c34d4f5ae";
@@ -30,16 +31,19 @@
     { device = "/dev/disk/by-uuid/6b74c9c9-1c4b-4360-9534-daaa94160697";
       fsType = "btrfs";
       options = [ "subvol=nix" "rw" "ssd" "space_cache=v2" "noatime" "discard=async" ];
+      neededForBoot = true;
     };
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/3337-D467";
       fsType = "vfat";
+      neededForBoot = true;
     };
 
   fileSystems."/persist" =
     { device = "/dev/disk/by-uuid/de720c41-1f62-4ccb-83e4-cf3b42003db7";
       fsType = "ext4";
+      neededForBoot = true;
     };
 
   swapDevices = [ ];

@@ -9,6 +9,7 @@
     device = "/persist/var/log";
     fsType = "none";
     options = [ "bind" ];
+    neededForBoot = true;
   };
   networking.hostName = "nixos-dellG";
   nixpkgs.config.allowUnfree = true;
