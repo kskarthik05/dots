@@ -3,14 +3,15 @@ let
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
 in {
-  home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [
+  home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [ 
+    xclicker
     wget
     unzip
     zenity
     soundkonverter
     mp3gain
 #    nix-gaming.packages.${pkgs.hostPlatform.system}.osu-stable
-#    osu-lazer-bin
+    pkgs-unstable.osu-lazer-bin
 #    inputs.etterna.packages.x86_64-linux.etterna
     pipewire.jack
     pkgs-unstable.discord-canary

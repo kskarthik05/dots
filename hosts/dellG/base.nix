@@ -1,8 +1,8 @@
 
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs-unstable, ... }: {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs-unstable.linuxPackages_latest;
   time.timeZone = "Asia/Kolkata";
   environment.etc = { "machine-id".source = "/persist/etc/machine-id"; };
   fileSystems."/var/log" = {
