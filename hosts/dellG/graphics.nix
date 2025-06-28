@@ -15,7 +15,7 @@
       nvidiaBusId = "PCI:1:0:0";
     };
     powerManagement.finegrained = false;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
   };
   services.xserver.videoDrivers = [ "nvidia" ];
 }
