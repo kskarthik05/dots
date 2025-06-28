@@ -4,6 +4,7 @@ let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
 in {
   home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [ 
+
     xclicker
     wget
     unzip
@@ -12,6 +13,7 @@ in {
     mp3gain
 #    nix-gaming.packages.${pkgs.hostPlatform.system}.osu-stable
     pkgs-unstable.osu-lazer-bin
+    pkgs-unstable.etterna
 #    inputs.etterna.packages.x86_64-linux.etterna
     pipewire.jack
     pkgs-unstable.discord-canary
