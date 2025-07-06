@@ -167,7 +167,7 @@ in {
   };
   systemd.services.libvirtd.wantedBy = lib.mkForce [ ];
   systemd.services.libvirt-guests.wantedBy = lib.mkForce [ ];
-  services.displayManager.defaultSession = lib.mkForce "plasmax11";
+  services.displayManager.defaultSession = lib.mkForce "plasma";
   services.xserver.videoDrivers  = lib.mkForce [
     "modesetting"
     "fbdev"

@@ -14,13 +14,12 @@ in {
 #    nix-gaming.packages.${pkgs.hostPlatform.system}.osu-stable
     pkgs-unstable.osu-lazer-bin
     pkgs-unstable.etterna
-#    inputs.etterna.packages.x86_64-linux.etterna
     pipewire.jack
-    pkgs-unstable.discord-canary
+    discord
     nur.repos.ataraxiasjel.waydroid-script
     krita
     pciutils
-    gnome.dconf-editor
+    dconf-editor
     distrobox
     chromium
     pkgs-unstable.universal-android-debloater
@@ -41,10 +40,10 @@ in {
     nicotine-plus
     picard
     git
-    nixfmt
+    nixfmt-classic
     rhythmbox
     mpv
-    transmission-gtk
+    transmission_4-gtk
     tree
     flac
     unar
