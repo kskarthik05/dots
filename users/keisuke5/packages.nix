@@ -4,7 +4,8 @@ let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
 in {
   home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [ 
-
+    lsusb
+    easyeffects
     xclicker
     wget
     unzip
@@ -21,7 +22,6 @@ in {
     pciutils
     dconf-editor
     distrobox
-    chromium
     pkgs-unstable.universal-android-debloater
     jre
     ffmpeg
@@ -55,6 +55,10 @@ in {
     #Custom
     (callPackage ../../pkgs/bgScripts.nix { })
   ];
+  programs.chromium = {
+    enable = true;
+    package = pkgs.ungoogled-chromium;
+  };
   programs.vscode = {
     enable = true;
     package = pkgs.vscode.fhsWithPackages (ps: with ps; [ zlib openssl.dev pkg-config]);
