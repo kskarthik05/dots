@@ -1,7 +1,7 @@
 {
   specialisation = {
   vfio.configuration = {
-    imports = [ ./vfio.nix ];
+#    imports = [ ./vfio.nix ];
   };
   };
 }
