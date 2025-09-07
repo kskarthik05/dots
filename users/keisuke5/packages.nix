@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-lutris-pin, pkgs-unstable, inputs, ... }:
+{ config, pkgs, pkgs-lutris-pin,  inputs, ... }:
 let
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
@@ -9,25 +9,24 @@ in {
     wget
     unzip
     zenity
-    soundkonverter
     mp3gain
 #    nix-gaming.packages.${pkgs.hostPlatform.system}.osu-stable
-    pkgs-unstable.osu-lazer-bin
-    pkgs-unstable.etterna
+    osu-lazer-bin
+    etterna
     pipewire.jack
     discord
-    nur.repos.ataraxiasjel.waydroid-script
+#    nur.repos.ataraxiasjel.waydroid-script
     krita
     pciutils
     dconf-editor
     distrobox
     chromium
-    pkgs-unstable.universal-android-debloater
+    universal-android-debloater
     jre
     ffmpeg
     pulseaudio
-    pkgs-unstable.lutris
-    pkgs-unstable.wineWowPackages.staging
+    lutris
+    wineWowPackages.staging
     firefox
     pavucontrol
     r2modman
