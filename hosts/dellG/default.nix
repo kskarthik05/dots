@@ -2,7 +2,7 @@
   imports = [ 
     ./hardware.nix
     ./base.nix 
-    ./desktop.nix
+    ./sway.nix
     ./graphics.nix
     ./sound.nix 
     ./network.nix

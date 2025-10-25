@@ -1,17 +1,17 @@
-{ config, pkgs, pkgs-lutris-pin,  inputs, ... }:
+{ config, pkgs, pkgs-stable, pkgs-lutris-pin,  inputs, ... }:
 let
   nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
 in {
   home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [ 
-
+    alacritty
     xclicker
     wget
     unzip
     zenity
     mp3gain
 #    nix-gaming.packages.${pkgs.hostPlatform.system}.osu-stable
-    osu-lazer-bin
+    pkgs-stable.osu-lazer-bin
     etterna
     pipewire.jack
     discord

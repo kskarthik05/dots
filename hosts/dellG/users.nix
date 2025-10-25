@@ -8,8 +8,4 @@
     extraGroups =
       [ "wheel" "power" "video" "docker" "vboxusers" "libvirtd" "qemu-libvirtd" ];
   };
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "keisuke5";
-  };
 }
