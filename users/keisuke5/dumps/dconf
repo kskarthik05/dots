@@ -1,0 +1,977 @@
+[ca/desrt/dconf-editor]
+saved-pathbar-path='/org/virt-manager/virt-manager/connections/'
+saved-view='/org/'
+window-height=500
+window-is-maximized=false
+window-width=540
+
+[com/github/wwmm/easyeffects]
+last-loaded-output-preset='PEQ'
+window-fullscreen=false
+window-height=429
+window-maximized=true
+window-width=1102
+
+[com/github/wwmm/easyeffects/streaminputs]
+input-device='alsa_input.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Headset__source'
+
+[com/github/wwmm/easyeffects/streamoutputs]
+blocklist=['alsa_playback.osu!']
+output-device='alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Headphones__sink'
+plugins=['equalizer#0']
+
+[com/github/wwmm/easyeffects/streamoutputs/equalizer/0]
+bypass=false
+input-gain=-4.4000000000000004
+mode='IIR'
+num-bands=16
+output-gain=4.4000000000000004
+pitch-left=0.0
+split-channels=true
+
+[com/github/wwmm/easyeffects/streamoutputs/equalizer/0/leftchannel]
+band0-frequency=21.0
+band0-gain=-1.8999999761581421
+band0-mode='APO (DR)'
+band0-q=2.0
+band0-type='Bell'
+band1-frequency=48.0
+band1-gain=-4.8000001907348633
+band1-mode='APO (DR)'
+band1-q=0.5
+band1-type='Bell'
+band10-frequency=10400.0
+band10-gain=2.75
+band10-mode='APO (DR)'
+band10-q=6.5
+band10-type='Bell'
+band11-frequency=9400.0
+band11-gain=2.25
+band11-mode='APO (DR)'
+band11-q=4.5999999046325684
+band11-type='Bell'
+band12-frequency=11227.0
+band12-gain=-3.5
+band12-mode='APO (DR)'
+band12-q=9.0
+band12-type='Bell'
+band13-frequency=10500.0
+band13-gain=3.25
+band13-mode='APO (DR)'
+band13-q=11.0
+band13-type='Bell'
+band14-frequency=14920.0
+band14-gain=-1.5
+band14-mode='APO (DR)'
+band14-q=1.5
+band14-type='Bell'
+band15-frequency=15000.0
+band15-gain=2.5
+band15-mode='APO (DR)'
+band15-q=1.0
+band15-type='Bell'
+band16-type='Off'
+band17-type='Off'
+band18-type='Off'
+band19-type='Off'
+band2-frequency=510.0
+band2-gain=2.5999999046325684
+band2-mode='APO (DR)'
+band2-q=0.89999997615814209
+band2-type='Bell'
+band20-type='Off'
+band21-type='Off'
+band22-type='Off'
+band23-type='Off'
+band24-type='Off'
+band25-type='Off'
+band26-type='Off'
+band27-type='Off'
+band28-type='Off'
+band29-type='Off'
+band3-frequency=1600.0
+band3-gain=-2.0999999046325684
+band3-mode='APO (DR)'
+band3-q=1.2000000476837158
+band3-type='Bell'
+band30-type='Off'
+band31-type='Off'
+band4-frequency=2200.0
+band4-gain=-0.89999997615814209
+band4-mode='APO (DR)'
+band4-q=2.0
+band4-type='Bell'
+band5-frequency=3100.0
+band5-gain=2.4000000953674316
+band5-mode='APO (DR)'
+band5-q=2.0
+band5-type='Bell'
+band6-frequency=4900.0
+band6-gain=-3.5999999046325684
+band6-mode='APO (DR)'
+band6-q=2.0
+band6-type='Bell'
+band7-frequency=1000.0
+band7-gain=0.75
+band7-mode='APO (DR)'
+band7-q=2.0
+band7-type='Bell'
+band8-frequency=2700.0
+band8-gain=0.75
+band8-mode='APO (DR)'
+band8-q=8.0
+band8-type='Bell'
+band9-frequency=1700.0
+band9-gain=0.5
+band9-mode='APO (DR)'
+band9-q=4.0
+band9-type='Bell'
+
+[com/github/wwmm/easyeffects/streamoutputs/equalizer/0/rightchannel]
+band0-frequency=21.0
+band0-gain=-1.8999999761581421
+band0-mode='APO (DR)'
+band0-q=2.0
+band0-type='Bell'
+band1-frequency=48.0
+band1-gain=-4.8000001907348633
+band1-mode='APO (DR)'
+band1-q=0.5
+band1-type='Bell'
+band10-frequency=10400.0
+band10-gain=-2.75
+band10-mode='APO (DR)'
+band10-q=6.5
+band10-type='Bell'
+band11-frequency=9400.0
+band11-gain=-2.25
+band11-mode='APO (DR)'
+band11-q=4.5999999046325684
+band11-type='Bell'
+band12-frequency=11227.0
+band12-gain=3.5
+band12-mode='APO (DR)'
+band12-q=9.0
+band12-type='Bell'
+band13-frequency=10500.0
+band13-gain=-3.25
+band13-mode='APO (DR)'
+band13-q=11.0
+band13-type='Bell'
+band14-frequency=14920.0
+band14-gain=1.5
+band14-mode='APO (DR)'
+band14-q=1.5
+band14-type='Bell'
+band15-frequency=15000.0
+band15-gain=-2.5
+band15-mode='APO (DR)'
+band15-q=1.0
+band15-type='Bell'
+band16-type='Off'
+band17-type='Off'
+band18-type='Off'
+band19-type='Off'
+band2-frequency=510.0
+band2-gain=2.5999999046325684
+band2-mode='APO (DR)'
+band2-q=0.89999997615814209
+band2-type='Bell'
+band20-type='Off'
+band21-type='Off'
+band22-type='Off'
+band23-type='Off'
+band24-type='Off'
+band25-type='Off'
+band26-type='Off'
+band27-type='Off'
+band28-type='Off'
+band29-type='Off'
+band3-frequency=1600.0
+band3-gain=-2.0999999046325684
+band3-mode='APO (DR)'
+band3-q=1.2000000476837158
+band3-type='Bell'
+band30-type='Off'
+band31-type='Off'
+band4-frequency=2200.0
+band4-gain=-0.89999997615814209
+band4-mode='APO (DR)'
+band4-q=2.0
+band4-type='Bell'
+band5-frequency=3100.0
+band5-gain=2.4000000953674316
+band5-mode='APO (DR)'
+band5-q=2.0
+band5-type='Bell'
+band6-frequency=4900.0
+band6-gain=-3.5999999046325684
+band6-mode='APO (DR)'
+band6-q=2.0
+band6-type='Bell'
+band7-frequency=1000.0
+band7-gain=-0.75
+band7-mode='APO (DR)'
+band7-q=2.0
+band7-type='Bell'
+band8-frequency=2700.0
+band8-gain=-0.75
+band8-mode='APO (DR)'
+band8-q=8.0
+band8-type='Bell'
+band9-frequency=1700.0
+band9-gain=-0.5
+band9-mode='APO (DR)'
+band9-q=4.0
+band9-type='Bell'
+
+[com/github/wwmm/easyeffects/streamoutputs/equalizer/1/rightchannel]
+band0-frequency=22.399999999999999
+band0-gain=0.0
+band0-mode='RLC (BT)'
+band0-mute=false
+band0-q=4.3600000000000003
+band0-slope='x1'
+band0-solo=false
+band0-type='Bell'
+band0-width=4.0
+band1-frequency=27.800000000000001
+band1-gain=0.0
+band1-mode='RLC (BT)'
+band1-mute=false
+band1-q=4.3600000000000003
+band1-slope='x1'
+band1-solo=false
+band1-type='Bell'
+band1-width=4.0
+band10-frequency=194.06
+band10-gain=0.0
+band10-mode='RLC (BT)'
+band10-mute=false
+band10-q=4.3600000000000003
+band10-slope='x1'
+band10-solo=false
+band10-type='Bell'
+band10-width=4.0
+band11-frequency=240.81
+band11-gain=0.0
+band11-mode='RLC (BT)'
+band11-mute=false
+band11-q=4.3600000000000003
+band11-slope='x1'
+band11-solo=false
+band11-type='Bell'
+band11-width=4.0
+band12-frequency=298.834
+band12-gain=0.0
+band12-mode='RLC (BT)'
+band12-mute=false
+band12-q=4.3600000000000003
+band12-slope='x1'
+band12-solo=false
+band12-type='Bell'
+band12-width=4.0
+band13-frequency=370.834
+band13-gain=0.0
+band13-mode='RLC (BT)'
+band13-mute=false
+band13-q=4.3600000000000003
+band13-slope='x1'
+band13-solo=false
+band13-type='Bell'
+band13-width=4.0
+band14-frequency=460.18200000000002
+band14-gain=0.0
+band14-mode='RLC (BT)'
+band14-mute=false
+band14-q=4.3600000000000003
+band14-slope='x1'
+band14-solo=false
+band14-type='Bell'
+band14-width=4.0
+band15-frequency=571.05700000000002
+band15-gain=0.0
+band15-mode='RLC (BT)'
+band15-mute=false
+band15-q=4.3600000000000003
+band15-slope='x1'
+band15-solo=false
+band15-type='Bell'
+band15-width=4.0
+band16-frequency=708.64700000000005
+band16-gain=0.0
+band16-mode='RLC (BT)'
+band16-mute=false
+band16-q=4.3600000000000003
+band16-slope='x1'
+band16-solo=false
+band16-type='Bell'
+band16-width=4.0
+band17-frequency=879.38699999999994
+band17-gain=0.0
+band17-mode='RLC (BT)'
+band17-mute=false
+band17-q=4.3600000000000003
+band17-slope='x1'
+band17-solo=false
+band17-type='Bell'
+band17-width=4.0
+band18-frequency=1091.26
+band18-gain=0.0
+band18-mode='RLC (BT)'
+band18-mute=false
+band18-q=4.3600000000000003
+band18-slope='x1'
+band18-solo=false
+band18-type='Bell'
+band18-width=4.0
+band19-frequency=1354.1900000000001
+band19-gain=0.0
+band19-mode='RLC (BT)'
+band19-mute=false
+band19-q=4.3600000000000003
+band19-slope='x1'
+band19-solo=false
+band19-type='Bell'
+band19-width=4.0
+band2-frequency=34.509999999999998
+band2-gain=0.0
+band2-mode='RLC (BT)'
+band2-mute=false
+band2-q=4.3600000000000003
+band2-slope='x1'
+band2-solo=false
+band2-type='Bell'
+band2-width=4.0
+band20-frequency=1680.47
+band20-gain=0.0
+band20-mode='RLC (BT)'
+band20-mute=false
+band20-q=4.3600000000000003
+band20-slope='x1'
+band20-solo=false
+band20-type='Bell'
+band20-width=4.0
+band21-frequency=2085.3499999999999
+band21-gain=0.0
+band21-mode='RLC (BT)'
+band21-mute=false
+band21-q=4.3600000000000003
+band21-slope='x1'
+band21-solo=false
+band21-type='Bell'
+band21-width=4.0
+band22-frequency=2587.79
+band22-gain=0.0
+band22-mode='RLC (BT)'
+band22-mute=false
+band22-q=4.3600000000000003
+band22-slope='x1'
+band22-solo=false
+band22-type='Bell'
+band22-width=4.0
+band23-frequency=3211.29
+band23-gain=0.0
+band23-mode='RLC (BT)'
+band23-mute=false
+band23-q=4.3600000000000003
+band23-slope='x1'
+band23-solo=false
+band23-type='Bell'
+band23-width=4.0
+band24-frequency=3985.0100000000002
+band24-gain=0.0
+band24-mode='RLC (BT)'
+band24-mute=false
+band24-q=4.3600000000000003
+band24-slope='x1'
+band24-solo=false
+band24-type='Bell'
+band24-width=4.0
+band25-frequency=4945.1499999999996
+band25-gain=0.0
+band25-mode='RLC (BT)'
+band25-mute=false
+band25-q=4.3600000000000003
+band25-slope='x1'
+band25-solo=false
+band25-type='Bell'
+band25-width=4.0
+band26-frequency=6136.6300000000001
+band26-gain=0.0
+band26-mode='RLC (BT)'
+band26-mute=false
+band26-q=4.3600000000000003
+band26-slope='x1'
+band26-solo=false
+band26-type='Bell'
+band26-width=4.0
+band27-frequency=7615.1700000000001
+band27-gain=0.0
+band27-mode='RLC (BT)'
+band27-mute=false
+band27-q=4.3600000000000003
+band27-slope='x1'
+band27-solo=false
+band27-type='Bell'
+band27-width=4.0
+band28-frequency=9449.9599999999991
+band28-gain=0.0
+band28-mode='RLC (BT)'
+band28-mute=false
+band28-q=4.3600000000000003
+band28-slope='x1'
+band28-solo=false
+band28-type='Bell'
+band28-width=4.0
+band29-frequency=11726.799999999999
+band29-gain=0.0
+band29-mode='RLC (BT)'
+band29-mute=false
+band29-q=4.3600000000000003
+band29-slope='x1'
+band29-solo=false
+band29-type='Bell'
+band29-width=4.0
+band3-frequency=42.82
+band3-gain=0.0
+band3-mode='RLC (BT)'
+band3-mute=false
+band3-q=4.3600000000000003
+band3-slope='x1'
+band3-solo=false
+band3-type='Bell'
+band3-width=4.0
+band30-frequency=14552.200000000001
+band30-gain=0.0
+band30-mode='RLC (BT)'
+band30-mute=false
+band30-q=4.3600000000000003
+band30-slope='x1'
+band30-solo=false
+band30-type='Bell'
+band30-width=4.0
+band31-frequency=18058.400000000001
+band31-gain=0.0
+band31-mode='RLC (BT)'
+band31-mute=false
+band31-q=4.3600000000000003
+band31-slope='x1'
+band31-solo=false
+band31-type='Bell'
+band31-width=4.0
+band4-frequency=53.140000000000001
+band4-gain=0.0
+band4-mode='RLC (BT)'
+band4-mute=false
+band4-q=4.3600000000000003
+band4-slope='x1'
+band4-solo=false
+band4-type='Bell'
+band4-width=4.0
+band5-frequency=65.950000000000003
+band5-gain=0.0
+band5-mode='RLC (BT)'
+band5-mute=false
+band5-q=4.3600000000000003
+band5-slope='x1'
+band5-solo=false
+band5-type='Bell'
+band5-width=4.0
+band6-frequency=81.829999999999998
+band6-gain=0.0
+band6-mode='RLC (BT)'
+band6-mute=false
+band6-q=4.3600000000000003
+band6-slope='x1'
+band6-solo=false
+band6-type='Bell'
+band6-width=4.0
+band7-frequency=101.55
+band7-gain=0.0
+band7-mode='RLC (BT)'
+band7-mute=false
+band7-q=4.3600000000000003
+band7-slope='x1'
+band7-solo=false
+band7-type='Bell'
+band7-width=4.0
+band8-frequency=126.0
+band8-gain=0.0
+band8-mode='RLC (BT)'
+band8-mute=false
+band8-q=4.3600000000000003
+band8-slope='x1'
+band8-solo=false
+band8-type='Bell'
+band8-width=4.0
+band9-frequency=156.38
+band9-gain=0.0
+band9-mode='RLC (BT)'
+band9-mute=false
+band9-q=4.3600000000000003
+band9-slope='x1'
+band9-solo=false
+band9-type='Bell'
+band9-width=4.0
+
+[com/github/wwmm/pulseeffects]
+last-used-input-preset='Presets'
+last-used-output-preset='eqmac_preset'
+window-height=441
+window-width=929
+
+[com/github/wwmm/pulseeffects/sinkinputs]
+plugins=['limiter', 'autogain', 'gate', 'multiband_gate', 'compressor', 'multiband_compressor', 'convolver', 'bass_enhancer', 'exciter', 'crystalizer', 'stereo_tools', 'reverb', 'equalizer', 'delay', 'deesser', 'crossfeed', 'loudness', 'maximizer', 'filter', 'pitch', 'rnnoise']
+
+[com/github/wwmm/pulseeffects/sinkinputs/autogain]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/bassenhancer]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/compressor]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/convolver]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/crossfeed]
+installed=true
+post-messages=false
+state=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/crystalizer]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/deesser]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/delay]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/equalizer]
+installed=true
+post-messages=false
+state=true
+
+[com/github/wwmm/pulseeffects/sinkinputs/exciter]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/filter]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/gate]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/limiter]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/loudness]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/maximizer]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/multibandcompressor]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/multibandgate]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/pitch]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/reverb]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/rnnoise]
+installed=true
+model-path=''
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sinkinputs/stereotools]
+installed=true
+mutel=false
+phasel=false
+phaser=false
+post-messages=false
+state=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/compressor]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/deesser]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/equalizer]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/equalizer/rightchannel]
+band0-frequency=22.59
+band0-mode='RLC (BT)'
+band0-q=4.3600000000000003
+band0-slope='x1'
+band0-type='Bell'
+band1-frequency=28.440000000000001
+band1-mode='RLC (BT)'
+band1-q=4.3600000000000003
+band1-slope='x1'
+band1-type='Bell'
+band10-frequency=225.88999999999999
+band10-mode='RLC (BT)'
+band10-q=4.3600000000000003
+band10-slope='x1'
+band10-type='Bell'
+band11-frequency=284.38
+band11-mode='RLC (BT)'
+band11-q=4.3600000000000003
+band11-slope='x1'
+band11-type='Bell'
+band12-frequency=358.01999999999998
+band12-mode='RLC (BT)'
+band12-q=4.3600000000000003
+band12-slope='x1'
+band12-type='Bell'
+band13-frequency=450.72000000000003
+band13-mode='RLC (BT)'
+band13-q=4.3600000000000003
+band13-slope='x1'
+band13-type='Bell'
+band14-frequency=567.41999999999996
+band14-mode='RLC (BT)'
+band14-q=4.3600000000000003
+band14-slope='x1'
+band14-type='Bell'
+band15-frequency=714.34000000000003
+band15-mode='RLC (BT)'
+band15-q=4.3600000000000003
+band15-slope='x1'
+band15-type='Bell'
+band16-frequency=899.28999999999996
+band16-mode='RLC (BT)'
+band16-q=4.3600000000000003
+band16-slope='x1'
+band16-type='Bell'
+band17-frequency=1132.1500000000001
+band17-mode='RLC (BT)'
+band17-q=4.3600000000000003
+band17-slope='x1'
+band17-type='Bell'
+band18-frequency=1425.29
+band18-mode='RLC (BT)'
+band18-q=4.3600000000000003
+band18-slope='x1'
+band18-type='Bell'
+band19-frequency=1794.3299999999999
+band19-mode='RLC (BT)'
+band19-q=4.3600000000000003
+band19-slope='x1'
+band19-type='Bell'
+band2-frequency=35.799999999999997
+band2-mode='RLC (BT)'
+band2-q=4.3600000000000003
+band2-slope='x1'
+band2-type='Bell'
+band20-frequency=2258.9299999999998
+band20-mode='RLC (BT)'
+band20-q=4.3600000000000003
+band20-slope='x1'
+band20-type='Bell'
+band21-frequency=2843.8200000000002
+band21-mode='RLC (BT)'
+band21-q=4.3600000000000003
+band21-slope='x1'
+band21-type='Bell'
+band22-frequency=3580.1599999999999
+band22-mode='RLC (BT)'
+band22-q=4.3600000000000003
+band22-slope='x1'
+band22-type='Bell'
+band23-frequency=4507.1499999999996
+band23-mode='RLC (BT)'
+band23-q=4.3600000000000003
+band23-slope='x1'
+band23-type='Bell'
+band24-frequency=5674.1599999999999
+band24-mode='RLC (BT)'
+band24-q=4.3600000000000003
+band24-slope='x1'
+band24-type='Bell'
+band25-frequency=7143.3500000000004
+band25-mode='RLC (BT)'
+band25-q=4.3600000000000003
+band25-slope='x1'
+band25-type='Bell'
+band26-frequency=8992.9400000000005
+band26-mode='RLC (BT)'
+band26-q=4.3600000000000003
+band26-slope='x1'
+band26-type='Bell'
+band27-frequency=11321.450000000001
+band27-mode='RLC (BT)'
+band27-q=4.3600000000000003
+band27-slope='x1'
+band27-type='Bell'
+band28-frequency=14252.860000000001
+band28-mode='RLC (BT)'
+band28-q=4.3600000000000003
+band28-slope='x1'
+band28-type='Bell'
+band29-frequency=17943.279999999999
+band29-mode='RLC (BT)'
+band29-q=4.3600000000000003
+band29-slope='x1'
+band29-type='Bell'
+band3-frequency=45.07
+band3-mode='RLC (BT)'
+band3-q=4.3600000000000003
+band3-slope='x1'
+band3-type='Bell'
+band4-frequency=56.740000000000002
+band4-mode='RLC (BT)'
+band4-q=4.3600000000000003
+band4-slope='x1'
+band4-type='Bell'
+band5-frequency=71.430000000000007
+band5-mode='RLC (BT)'
+band5-q=4.3600000000000003
+band5-slope='x1'
+band5-type='Bell'
+band6-frequency=89.930000000000007
+band6-mode='RLC (BT)'
+band6-q=4.3600000000000003
+band6-slope='x1'
+band6-type='Bell'
+band7-frequency=113.20999999999999
+band7-mode='RLC (BT)'
+band7-q=4.3600000000000003
+band7-slope='x1'
+band7-type='Bell'
+band8-frequency=142.53
+band8-mode='RLC (BT)'
+band8-q=4.3600000000000003
+band8-slope='x1'
+band8-type='Bell'
+band9-frequency=179.43000000000001
+band9-mode='RLC (BT)'
+band9-q=4.3600000000000003
+band9-slope='x1'
+band9-type='Bell'
+
+[com/github/wwmm/pulseeffects/sourceoutputs/filter]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/gate]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/limiter]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/maximizer]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/multibandcompressor]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/multibandgate]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/pitch]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/reverb]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/rnnoise]
+installed=true
+model-path='Standard RNNoise Model'
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/stereotools]
+installed=true
+post-messages=false
+
+[com/github/wwmm/pulseeffects/sourceoutputs/webrtc]
+installed=true
+post-messages=false
+
+[com/usebottles/bottles]
+window-height=640
+window-width=880
+
+[org/gnome/desktop/a11y/applications]
+screen-reader-enabled=false
+
+[org/gnome/desktop/interface]
+color-scheme='prefer-dark'
+cursor-blink=true
+cursor-blink-time=1000
+cursor-size=24
+cursor-theme='breeze_cursors'
+enable-animations=false
+font-name='Noto Sans,  10'
+icon-theme='breeze-dark'
+scaling-factor=uint32 1
+text-scaling-factor=1.0
+toolbar-style='text'
+
+[org/gnome/desktop/sound]
+theme-name='ocean'
+
+[org/gnome/desktop/wm/preferences]
+button-layout='icon:minimize,maximize,close'
+
+[org/gnome/rhythmbox]
+display-page-tree-visible=false
+maximized=true
+position=(0, 0)
+size=(1916, 1030)
+
+[org/gnome/rhythmbox/library]
+layout-filename='%tN - %tt'
+layout-path='%aa/%at'
+
+[org/gnome/rhythmbox/library/encoding]
+media-type='audio/x-vorbis'
+
+[org/gnome/rhythmbox/library/source]
+paned-position=273
+sorting=('FirstSeen', false)
+
+[org/gnome/rhythmbox/player]
+play-order='shuffle'
+volume=0.68292236328125
+
+[org/gnome/rhythmbox/plugins]
+active-plugins=['rb', 'power-manager', 'notification', 'mtpdevice', 'mpris', 'iradio', 'ipod', 'generic-player', 'dbus-media-server', 'cd-recorder', 'audioscrobbler', 'audiocd', 'android', 'artsearch']
+seen-plugins=['rblirc', 'rb', 'webremote', 'replaygain', 'rbzeitgeist', 'pythonconsole', 'notification', 'mtpdevice', 'ipod', 'grilo', 'fmradio', 'dbus-media-server', 'daap', 'cd-recorder', 'audioscrobbler', 'artsearch', 'im-status', 'listenbrainz', 'lyrics', 'magnatune']
+
+[org/gnome/rhythmbox/plugins/audioscrobbler/Last.fm]
+scrobbling-enabled=true
+
+[org/gnome/rhythmbox/plugins/audioscrobbler/Libre.fm]
+scrobbling-enabled=true
+
+[org/gnome/rhythmbox/plugins/iradio]
+initial-stations-loaded=true
+
+[org/gnome/rhythmbox/podcast]
+download-location='file:///home/keisuke5/Music'
+
+[org/gnome/rhythmbox/rhythmdb]
+locations=['file:///home/keisuke5/Music']
+
+[org/gnome/rhythmbox/sources]
+browser-views='genres-artists-albums'
+visible-columns=['post-time', 'duration', 'track-number', 'album', 'genre', 'artist', 'first-seen', 'bitrate']
+
+[org/gtk/gtk4/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+sidebar-width=140
+sort-column='name'
+sort-directories-first=true
+sort-order='descending'
+type-format='category'
+view-type='list'
+window-size=(815, 338)
+
+[org/gtk/settings/color-chooser]
+custom-colors=[(0.066666666666666666, 0.69019607843137254, 0.23529411764705882, 1.0)]
+selected-color=(true, 0.066666666666666666, 0.69019607843137254, 0.23529411764705882, 1.0)
+
+[org/gtk/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=true
+show-size-column=true
+show-type-column=true
+sidebar-width=152
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+type-format='category'
+window-position=(412, 173)
+window-size=(1096, 773)
+
+[org/soundconverter]
+aac-quality=192
+last-used-folder='file:///home/keisuke5/Music/sorted/MP3'
+opus-bitrate=192
+output-mime-type='audio/x-m4a'
+output-resample=true
+replace-messy-chars=true
+same-folder-as-input=false
+selected-folder='file:///home/keisuke5/Music/converted'
+vorbis-quality=1.0
+
+[org/virt-manager/virt-manager]
+manager-window-height=1030
+manager-window-width=1916
+xmleditor-enabled=true
+
+[org/virt-manager/virt-manager/confirm]
+forcepoweroff=true
+removedev=true
+unapplied-dev=true
+
+[org/virt-manager/virt-manager/connections]
+autoconnect=['qemu:///system']
+uris=['qemu:///system']
+
+[org/virt-manager/virt-manager/conns/qemu:system]
+window-size=(800, 600)
+
+[org/virt-manager/virt-manager/details]
+show-toolbar=true
+
+[org/virt-manager/virt-manager/new-vm]
+graphics-type='system'
+
+[org/virt-manager/virt-manager/vmlist-fields]
+disk-usage=false
+network-traffic=false
+
+[org/virt-manager/virt-manager/vms/3697f70524fc48d6aec6022485315795]
+autoconnect=1
+scaling=1
+vm-window-size=(1916, 1030)
+
+[page/kramo/Cartridges]
+bottles-location='/home/keisuke5/.local/share/bottles'
+lutris-location='/home/keisuke5/.local/share/lutris'
+steam-location='/home/keisuke5/.steam/steam'
+
+[page/kramo/Cartridges/State]
+sort-mode='last_played'
+steam-limiter-tokens-history='[1733672570.1600153, 1733672571.9217882, 1733672571.9280355, 1733672571.9366188, 1733672571.941137, 1733672571.9442372, 1733672571.9471295, 1733672571.9498668]'

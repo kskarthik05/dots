@@ -75,8 +75,8 @@ in {
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
-      ovmf.enable = true;
-      ovmf.packages = [ pkgs.OVMFFull.fd ];
+      #ovmf.enable = true;
+#      ovmf.packages = [ pkgs.OVMFFull.fd ];
       swtpm.enable = true;
     };
     hooks.qemu = {

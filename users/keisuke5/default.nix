@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... }: {
   imports = [ 
    ./packages.nix
+   ./persistence.nix
   ];
   home.username = "keisuke5";
   home.homeDirectory = "/home/keisuke5";

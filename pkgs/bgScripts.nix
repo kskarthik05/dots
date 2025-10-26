@@ -39,7 +39,7 @@ let
 
       # Set the background image
       cp "$unique_bg_path" ~/".background-image"
-      feh --bg-scale "$unique_bg_path"
+      swaymsg output "*" bg "$unique_bg_path" fill
  '';
   };
   savebg = pkgs.writeShellApplication {
@@ -56,7 +56,7 @@ let
     text = ''
       bg_path=$(find ~/Pictures/backgrounds -type f | shuf -n 1)
       cp "$bg_path" ~/.background-image
-      feh --bg-scale "$bg_path"
+      swaymsg output "*" bg "$bg_path" fill
     '';
   };
 in stdenv.mkDerivation {
