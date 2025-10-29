@@ -3,6 +3,8 @@
 let
   repoPath = "$HOME/.dots/users/$USER/dotfiles";  # path to your repo
   pathsToManage = [
+    ".config/rofi"
+    ".config/waybar"
     ".config/i3"
     ".config/sway"
     ".config/MangoHud"

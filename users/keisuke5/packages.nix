@@ -4,7 +4,17 @@ let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
 in {
   home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [ 
-    alacritty
+    font-awesome
+    waybar
+    networkmanagerapplet
+    rofi
+    xfce.thunar
+    pasystray
+    i3status
+    grim # screenshot functionality
+    slurp # screenshot functionality
+    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+    mako # notification system developed by swaywm maintainer
     xclicker
     wget
     unzip

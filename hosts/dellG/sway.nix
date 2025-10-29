@@ -2,15 +2,6 @@
 { config, pkgs, lib, ... }:
 {
   environment.systemPackages = with pkgs; [
-    networkmanagerapplet
-    rofi
-    xfce.thunar
-    pasystray
-    i3status
-    grim # screenshot functionality
-    slurp # screenshot functionality
-    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    mako # notification system developed by swaywm maintainer
     alacritty
   ];
 
