@@ -243,8 +243,7 @@ include /etc/sway/config.d/*
 
 #tearing
 
-output * allow_tearing yes
-output * max_render_time off
+output * max_render_time 3
 
 
 #mouse
@@ -255,3 +254,11 @@ input type:pointer {
     accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
     pointer_accel 0 # set mouse sensitivity (between -1 and 1)
 }
+
+
+#idli
+
+exec swayidle -w \
+	timeout 1800 'swaylock -f' \
+	timeout 1805 'swaymsg "output * power off"' \
+		resume 'swaymsg "output * power on"'

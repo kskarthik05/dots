@@ -1,6 +1,9 @@
 {
   imports = [ 
     ./hardware.nix
+    ./stateless.nix
+    ./power.nix
+    ./hibernation.nix
     ./base.nix 
     ./sway.nix
     ./graphics.nix
