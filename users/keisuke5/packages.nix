@@ -4,6 +4,8 @@ let
   nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
 in {
   home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [ 
+    usbutils
+    pciutils
     clipman
     font-awesome
     waybar
@@ -41,7 +43,7 @@ in {
     firefox
     pavucontrol
     r2modman
-    stremio
+    pkgs-stable.stremio
     obs-studio
     xterm
     htop
@@ -51,7 +53,7 @@ in {
     picard
     git
     nixfmt-classic
-    rhythmbox
+#   rhythmbox
     mpv
     transmission_4-gtk
     tree
@@ -60,7 +62,7 @@ in {
     brightnessctl
     steam-run
     mangohud
-    glxinfo
+    mesa-demos
     steamtinkerlaunch
     #Custom
     (callPackage ../../pkgs/bgScripts.nix { })

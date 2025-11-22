@@ -12,7 +12,7 @@
   };
   services.udev.extraRules = ''
     # Allow keyboard access to web driver, replace ids as needed. 
-    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="41e4", ATTRS{idProduct}=="211a", TAG+="uaccess"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="41e4", ATTRS{idProduct}=="211a", TAG+="uaccess"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="41e4", ATTRS{idProduct}=="211a", TAG+="uaccess"
+    KERNEL=="usb*", SUBSYSTEM=="usb", ATTRS{idVendor}=="41e4", ATTRS{idProduct}=="211a", TAG+="uaccess"
   '';
 }
