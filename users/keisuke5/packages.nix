@@ -53,7 +53,7 @@ in {
     picard
     git
     nixfmt-classic
-#   rhythmbox
+    pkgs-stable.rhythmbox
     mpv
     transmission_4-gtk
     tree

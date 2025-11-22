@@ -242,11 +242,11 @@ include /etc/sway/config.d/*
 
 #tearing
 
-#output * max_render_time 3
+output * max_render_time 3
 #mouse_warping none
-output * max_render_time off
+#output * max_render_time off
 output * adaptive_sync off
-output * allow_tearing yes
+#output * allow_tearing yes
 
 #mouse
 
