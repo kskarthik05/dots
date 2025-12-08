@@ -7,17 +7,4 @@
     options = [ "subvol=swap" "noatime" ];
   };
   swapDevices = [ { device = "/swap/swapfile"; } ];
-  # Suspend first then hibernate when closing the lid
-  services.logind.lidSwitch = "suspend-then-hibernate";
-  # Hibernate on power button pressed
-  services.logind.powerKey = "hibernate";
-  services.logind.powerKeyLongPress = "poweroff";
-
-  # Define time delay for hibernation
-  systemd.sleep.extraConfig = ''
-    HibernateMode=shutdown
-    HibernateDelaySec=30m
-    SuspendState=mem
-  '';
-
 }

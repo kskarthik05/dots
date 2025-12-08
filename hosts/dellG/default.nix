@@ -2,10 +2,9 @@
   imports = [ 
     ./hardware.nix
     ./stateless.nix
-    ./power.nix
     ./hibernation.nix
     ./base.nix 
-    ./sway.nix
+    ./plasma.nix
     ./graphics.nix
     ./sound.nix 
     ./network.nix

@@ -55,7 +55,8 @@ in {
   boot = {
     kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
     kernelParams = [ "intel_iommu=on" ];
-    blacklistedKernelModules = [ "nouveau" "nvidia_uvm" "nvidia_drm" "nvidia_modeset" "nvidia" ];
+#    blacklistedKernelModules = [ "nouveau" "nvidia_uvm" "nvidia_drm" "nvidia_modeset" "nvidia" ];
+    blacklistedKernelModules = [ "nouveau" ];
     extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   };
   hardware.nvidia.prime = {
