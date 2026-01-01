@@ -57,9 +57,6 @@ in {
 #      ovmf.packages = [ pkgs.OVMFFull.fd ];
       swtpm.enable = true;
     };
-    hooks.qemu = {
-      vm_hook = "${vm_hook}";
-    };  
   };
   programs.virt-manager.enable = true;
   systemd.tmpfiles.rules = [ 
