@@ -12,7 +12,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-
+  boot.blacklistedKernelModules = [ "nouveau" ];
   fileSystems."/" =
     { device = "none";
       fsType = "tmpfs";

@@ -13,7 +13,7 @@ in {
     unzip
     zenity
     mp3gain
-    nix-gaming.packages.${pkgs.hostPlatform.system}.osu-lazer-bin
+    osu-lazer-bin
 #    osu-lazer-bin
     etterna
     pipewire.jack

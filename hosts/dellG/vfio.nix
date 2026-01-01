@@ -18,28 +18,6 @@ let
     sudo modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
   '';
 
-  vm_hook = pkgs.writers.writeBash "vm-hook" ''
-    # Variables
-    GUEST_NAME="$1"
-    OPERATION="$2"
-    SUB_OPERATION="$3"
-
-    # Run commands when the vm is started/stopped.
-    if [ "$GUEST_NAME" == "win11" ]; then
-      if [ "$OPERATION" == "prepare" ]; then
-        if [ "$SUB_OPERATION" == "begin" ]; then
-          modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
-	  looking-glass-client
-        fi
-      fi
-
-      if [ "$OPERATION" == "release" ]; then
-        if [ "$SUB_OPERATION" == "end" ]; then
-          modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
-        fi
-      fi
-    fi
-  '';
   gpuIDs = [
     "10de:25e2" # Graphics
     "10de:2291" # Audio
@@ -56,23 +34,22 @@ in {
     kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
     kernelParams = [ "intel_iommu=on" ];
 #    blacklistedKernelModules = [ "nouveau" "nvidia_uvm" "nvidia_drm" "nvidia_modeset" "nvidia" ];
-    blacklistedKernelModules = [ "nouveau" ];
-    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+#    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   };
-  hardware.nvidia.prime = {
-    sync.enable = lib.mkForce false;
-    offload = {
-      enable = true;
-      enableOffloadCmd = true;
-    };
-  };
+#  hardware.nvidia.prime = {
+#    sync.enable = lib.mkForce false;
+#    offload = {
+#      enable = true;
+#      enableOffloadCmd = true;
+#    };
+#  };
 
   boot.extraModprobeConfig = ''
     options nvidia_drm modeset=0
   '';
-  services.xserver.serverFlagsSection = ''
-    Option "AutoAddGPU" "false"
-  '';
+  #services.xserver.serverFlagsSection = ''
+  #  Option "AutoAddGPU" "false"
+  #'';
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
@@ -101,7 +78,7 @@ in {
     killall
     lsof
     psmisc
-    config.boot.kernelPackages.nvidia_x11
+#    config.boot.kernelPackages.nvidia_x11
   ];
   environment.sessionVariables = {
     LIBVIRT_DEFAULT_URI = [ "qemu:///system" ];
@@ -168,10 +145,10 @@ in {
   };
   systemd.services.libvirtd.wantedBy = lib.mkForce [ ];
   systemd.services.libvirt-guests.wantedBy = lib.mkForce [ ];
-  services.xserver.videoDrivers  = lib.mkForce [
-    "modesetting"
-    "fbdev"
-    "nvidia"
-  ];
+  #services.xserver.videoDrivers  = lib.mkForce [
+  #  "modesetting"
+  #  "fbdev"
+  #  "nvidia"
+  #];
 }
 

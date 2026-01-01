@@ -11,6 +11,6 @@
     ./input.nix
     ./users.nix
     ./extra.nix 
-    ./specialisation.nix
+    ./vfio.nix
   ];
 }
