@@ -1,40 +1,37 @@
-{ config, pkgs, pkgs-unstable, pkgs-lutris-pin,  inputs, ... }:
-let
-  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
-  nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
-in {
-  home.packages = with pkgs; with nix-gaming.packages.${pkgs.hostPlatform.system}; [ 
+{ config, pkgs, pkgs-unstable,  inputs, ... }:
+#let
+#  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") { inherit pkgs; };
+#  nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz"); 
+#in {
+{
+  home.packages = with pkgs; 
+#with nix-gaming.packages.${pkgs.hostPlatform.system}; 
+[ 
+    easyeffects
     ventoy
     usbutils
     pciutils
-    clipman
     xclicker
     wget
     unzip
     zenity
     mp3gain
-    osu-lazer-bin
-#    osu-lazer-bin
-    etterna
+    pkgs-unstable.osu-lazer-bin
     pipewire.jack
-    discord
 #    nur.repos.ataraxiasjel.waydroid-script
     krita
     pciutils
     dconf-editor
-    distrobox
     chromium
     universal-android-debloater
     jre
     ffmpeg
     pulseaudio
     lutris
-    wineWowPackages.staging
     firefox
     pavucontrol
     r2modman
     stremio
-    obs-studio
     xterm
     htop
     vesktop
