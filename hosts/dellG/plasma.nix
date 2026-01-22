@@ -9,4 +9,5 @@
   services.desktopManager.plasma6.enable = true;
   #services.displayManager.defaultSession = "plasmax11";  
   services.displayManager.sddm.settings.General.DisplayServer = "wayland";
+  environment.sessionVariables."KWIN_DRM_NO_AMS"=1;
 }

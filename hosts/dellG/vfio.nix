@@ -1,13 +1,15 @@
 { pkgs, lib, config, ... }:
 let
   vfio-start = pkgs.writeShellScriptBin "vfio-start" ''
-    sudo modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia
+    sudo modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia 
+    sudo modprobe vfio vfio_iommu_type1 vfio_pci
     virsh start --domain win11
   '';
 
   vfio-kill = pkgs.writeShellScriptBin "vfio-kill" ''
     virsh destroy --domain win11
     sudo modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
+    sudo modprobe -r vfio vfio_iommu_type1 vfio_pci
   ''; 
 
   gpu-disable = pkgs.writeShellScriptBin "gpu-disable" ''
@@ -31,18 +33,18 @@ let
   '';
 in {
   boot = {
-    kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
+#    kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
     kernelParams = [ "intel_iommu=on" ];
-#    blacklistedKernelModules = [ "nouveau" "nvidia_uvm" "nvidia_drm" "nvidia_modeset" "nvidia" ];
+    blacklistedKernelModules = [ "nouveau" "nvidia_uvm" "nvidia_drm" "nvidia_modeset" "nvidia" ];
 #    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   };
-#  hardware.nvidia.prime = {
-#    sync.enable = lib.mkForce false;
-#    offload = {
-#      enable = true;
-#      enableOffloadCmd = true;
-#    };
-#  };
+  hardware.nvidia.prime = {
+    sync.enable = lib.mkForce false;
+    offload = {
+      enable = true;
+      enableOffloadCmd = true;
+    };
+  };
 
   boot.extraModprobeConfig = ''
     options nvidia_drm modeset=0

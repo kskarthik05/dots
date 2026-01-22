@@ -27,7 +27,6 @@
     jre
     ffmpeg
     pulseaudio
-    lutris
     firefox
     pavucontrol
     r2modman
