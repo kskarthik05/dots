@@ -2,14 +2,14 @@
 let
   vfio-start = pkgs.writeShellScriptBin "vfio-start" ''
     sudo modprobe -r nvidia_drm nvidia_modeset nvidia_uvm nvidia 
-    sudo modprobe vfio vfio_iommu_type1 vfio_pci
+    sudo modprobe vfio vfio_iommu_type1 vfio_pci vfio_pci_core
     virsh start --domain win11
   '';
 
   vfio-kill = pkgs.writeShellScriptBin "vfio-kill" ''
     virsh destroy --domain win11
     sudo modprobe nvidia_drm nvidia_modeset nvidia_uvm nvidia
-    sudo modprobe -r vfio vfio_iommu_type1 vfio_pci
+    sudo modprobe -r vfio_iommu_type1 vfio_pci vfio_pci_core vfio
   ''; 
 
   gpu-disable = pkgs.writeShellScriptBin "gpu-disable" ''

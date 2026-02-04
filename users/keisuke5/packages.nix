@@ -7,6 +7,8 @@
   home.packages = with pkgs; 
 #with nix-gaming.packages.${pkgs.hostPlatform.system}; 
 [ 
+    discord
+    protonplus
     easyeffects
     ventoy
     usbutils
