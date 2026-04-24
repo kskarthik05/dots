@@ -4,4 +4,5 @@
   programs.adb.enable = true;
   programs.gamemode.enable = true;
   programs.dconf.enable = true;
+  programs.kdeconnect.enable = true;
 }
