@@ -7,6 +7,7 @@
     ranger
     waybar
     font-awesome
+    jq
   ];
 
   # Enable the gnome-keyring secrets vault. 
