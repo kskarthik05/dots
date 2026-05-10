@@ -1,0 +1,74 @@
+* {
+    text-color:  rgba(217, 216, 216, 1);
+    background-color:  rgba(0,0,0,0);
+    dark: rgba(35, 31, 32, 0.3);
+
+    // Black
+    black:       rgba(35, 31, 32, 0.3);
+    lightblack:  rgba(35, 31, 32, 0.3);
+
+    // Red
+    red:         rgba(238, 46, 36, 1);
+    lightred:    rgba(238, 46, 36, 1);
+
+    // Green
+    green:       rgba(217, 216, 216, 1);
+    lightgreen:  rgba(217, 216, 216, 1);
+
+    // Yellow
+    yellow:      rgba(255, 210, 4, 1);
+    lightyellow: rgba(255, 210, 4, 1);
+
+    // Blue
+    blue:        rgba(217, 216, 216, 1);
+    lightblue:   rgba(217, 216, 216, 1);
+
+    // Magenta
+    magenta:      rgba(217, 216, 216, 0.7);
+    lightmagenta: rgba(217, 216, 216, 0.4);
+
+    // Cyan
+    cyan:        rgba(217, 216, 216, 1);
+    lightcyan:   rgba(217, 216, 216, 1);
+
+    // White
+    white:       rgba(217, 216, 216, 0.7);
+    lightwhite:  rgba(217, 216, 216, 1);
+
+    highlight:   bold rgba(217, 216, 216, 1);
+}
+
+window {
+    height:   100%;
+    width: 30em;
+    location: west;
+    anchor:   west;
+    border:  0px 2px 0px 0px;
+    text-color: @lightwhite;
+
+    background-color: rgba(35, 31, 32, 0);
+}
+
+mode-switcher {
+    border: 2px 0px 0px 0px;
+    background-color: rgba(35, 31, 32, 0);
+    padding: 4px;
+}
+
+button selected {
+    border-color: @lightwhite;
+    text-color: @lightwhite;
+}
+
+inputbar {
+    background-color: rgba(35, 31, 32, 0);
+    text-color: @lightwhite;
+    padding: 4px;
+    border: 0px 0px 2px 0px;
+}
+
+mainbox {
+    expand: true;
+    background-color: rgba(35, 31, 32, 0.85);
+    spacing: 1em;
+}

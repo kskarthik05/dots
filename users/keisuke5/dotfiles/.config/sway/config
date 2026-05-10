@@ -58,7 +58,7 @@ bindsym $mod+Shift+x kill
 # start dmenu (a program launcher)
 bindsym $mod+space exec --no-startup-id rofi -show drun -show-icons
 bindsym $mod+Tab exec --no-startup-id rofi -show window -show-icons
-bindsym $mod+Shift+space exec --no-startup-id rofi -show drun -run-command "$HOME/.config/rofi/scripts/sway-dynamic-launch.sh {name} {cmd}"
+bindsym $mod+Shift+space exec --no-startup-id rofi -show drun -show-icons -run-command "$HOME/.config/rofi/scripts/sway-dynamic-launch.sh {name} {cmd}"
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"

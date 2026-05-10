@@ -5,6 +5,8 @@
     alacritty
     rofi
     ranger
+    waybar
+    font-awesome
   ];
 
   # Enable the gnome-keyring secrets vault. 

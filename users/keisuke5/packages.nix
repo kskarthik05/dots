@@ -7,8 +7,6 @@
   home.packages = with pkgs; 
 #with nix-gaming.packages.${pkgs.hostPlatform.system}; 
 [ 
-    font-awesome
-    waybar
     android-tools
     stremio-linux-shell
     discord
