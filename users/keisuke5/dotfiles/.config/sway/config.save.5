@@ -57,9 +57,8 @@ bindsym $mod+Shift+x kill
 
 # start dmenu (a program launcher)
 bindsym $mod+space exec --no-startup-id rofi -show drun -show-icons
-bindsym $mod+Tab exec --no-startup-id rofi -show window -show-icons
 bindsym $mod+Shift+space exec --no-startup-id rofi -show drun -run-command "$HOME/.config/rofi/scripts/sway-dynamic-launch.sh {name} {cmd}"
-
+	
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -243,16 +242,11 @@ include /etc/sway/config.d/*
 
 #tearing
 
-#output * max_render_time 1
+output * max_render_time 3
 #mouse_warping none
 #output * max_render_time off
-#output * adaptive_sync off
+output * adaptive_sync off
 #output * allow_tearing yes
-
-output * {
-  allow_tearing yes
-  max_render_time off
-}
 
 #mouse
 

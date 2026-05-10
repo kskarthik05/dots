@@ -1,2 +1,6 @@
 
-@theme "/nix/store/r6by463p9aqp6rk0rd23ljzwjrxs1dzd-rofi-2.0.0/share/rofi/themes/purple.rasi"
+//@theme "/nix/store/r6by463p9aqp6rk0rd23ljzwjrxs1dzd-rofi-2.0.0/share/rofi/themes/purple.rasi"
+
+//@theme "/home/keisuke5/.nix-profile/share/rofi/themes/sidebar-v2.rasi"
+
+@theme "/nix/store/fxcdkckc1gjd9zw83n11vrmsx22nzdfw-rofi-2.0.0/share/rofi/themes/sidebar.rasi"

@@ -3,6 +3,8 @@
 {
   environment.systemPackages = with pkgs; [
     alacritty
+    rofi
+    ranger
   ];
 
   # Enable the gnome-keyring secrets vault. 
@@ -30,6 +32,6 @@ environment.loginShellInit = ''
     [[ "$(tty)" == /dev/tty1 ]] && export WLR_DRM_DEVICES=/dev/dri/igpu1 && sway
 '';
 
-  programs.light.enable = true;
+hardware.acpilight.enable = true;
   users.users.keisuke5.extraGroups = [ "video" ];
 }

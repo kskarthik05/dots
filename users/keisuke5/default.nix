@@ -8,8 +8,10 @@
   home.stateVersion = "23.11";
   programs.git = {
     enable = true;
-    userName  = "Karthik";
-    userEmail = "kskarthik20025@gmail.com";
+    settings = {
+      user.name  = "Karthik";
+      user.email = "kskarthik20025@gmail.com";
+    };
   };
   programs.home-manager.enable = true;
   dconf = {

@@ -7,6 +7,10 @@
   home.packages = with pkgs; 
 #with nix-gaming.packages.${pkgs.hostPlatform.system}; 
 [ 
+    font-awesome
+    waybar
+    android-tools
+    stremio-linux-shell
     discord
     protonplus
     easyeffects
@@ -32,11 +36,10 @@
     firefox
     pavucontrol
     r2modman
-    stremio
     xterm
     htop
     vesktop
-    neofetch
+    fastfetch
     nicotine-plus
     picard
     git
