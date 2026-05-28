@@ -4,7 +4,7 @@
     ./stateless.nix
     ./hibernation.nix
     ./base.nix 
-    ./sway.nix
+    ./plasma.nix
     ./graphics.nix
     ./sound.nix 
     ./network.nix

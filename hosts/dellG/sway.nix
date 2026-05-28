@@ -32,7 +32,7 @@ services.getty = {
 };
 environment.loginShellInit = ''
    
-    [[ "$(tty)" == /dev/tty1 ]] && export WLR_DRM_DEVICES=/dev/dri/igpu1 && sway
+    [[ "$(tty)" == /dev/tty1 ]] && WLR_DRM_DEVICES=/dev/dri/igpu1  WLR_DRM_NO_ATOMIC=1 sway
 '';
 
 hardware.acpilight.enable = true;
