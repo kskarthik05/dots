@@ -13,7 +13,7 @@
     default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 352800 384000];
     default.clock.rate = 48000;
     default.clock.quantum = 32;
-    default.clock.min-quantum = 4;
+    default.clock.min-quantum = 1;
     default.clock.max-quantum = 128;
   };
   };
