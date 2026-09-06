@@ -41,7 +41,6 @@
     nicotine-plus
     picard
     git
-    nixfmt-classic
     rhythmbox
     mpv
     transmission_4-gtk
